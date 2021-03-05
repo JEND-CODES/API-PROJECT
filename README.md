@@ -1,6 +1,6 @@
 # API-PROJECT
-Web service exposant une API
-Projet en cours de développement
+* Web service exposant une API
+* Projet en cours de développement
 
 ## INSTRUCTIONS D'INSTALLATION
 ``` bash
