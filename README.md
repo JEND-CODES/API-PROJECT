@@ -1,6 +1,6 @@
 # API-PROJECT
-* Web service exposant une API
-* Projet en cours de développement
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2dc074a9d3154e6a935e2365711a1b61)](https://www.codacy.com/gh/JEND-CODES/API-PROJECT/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JEND-CODES/API-PROJECT&amp;utm_campaign=Badge_Grade)
 
 ## DIAGRAMMES UML
 
