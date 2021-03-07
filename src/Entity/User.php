@@ -1,7 +1,7 @@
 <?php
 
 // Consulter la liste des utilisateurs inscrits liés à un client sur le site web : GET /api/clients/{id}/users -> "groups"={"clients_users"}
-// Consulter le détail d’un utilisateur inscrit lié à un client : GET /api/users/{id}
+// Consulter le détail d’un utilisateur inscrit lié à un client : GET /api/users/{id} ou GET /api/clients/{id}/users/{users}
 // Ajouter un nouvel utilisateur lié à un client : POST /api/users
 // Supprimer un utilisateur ajouté par un client : DELETE /api/users/{id}
 
@@ -11,9 +11,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+// use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
@@ -24,7 +26,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *      "delete"
  *  },
  *  collectionOperations={
- *      "get",
  *      "post",
  *      "api_clients_users_get_subresource"={
  *          "normalization_context"={
@@ -46,6 +47,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"read", "clients_users"})
+     * @ApiSubresource()
      */
     private $id;
 

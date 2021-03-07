@@ -5,44 +5,6 @@
 // 2. Bundle d'authentification : composer require lexik/jwt-authentication-bundle
 // 3. Faker PHP pour les fixtures : composer require fakerphp/faker
 
-// Docs Api Platform : https://api-platform.com/
-// Docs JWT authentication : https://jwt.io/introduction
-// Tuto Authentification JWT pour Api Symfony :
-// https://www.whatzeweb.com/cours/creer-une-api-rest-avec-symfony/lauthentification-avec-jwt
-// https://api-platform.com/docs/core/jwt/
-
-// Voir ici la signification de GET, POST, PUT, PATCH & DELETE : https://api-platform.com/docs/core/operations/
-// GET -> Affichage d'un ou plusieurs items
-// POST -> Création d'un item
-// PUT -> Remplacement d'un item
-// PATCH -> Modification partielle d'un item
-// DELETE -> Suppression d'un item
-
-
-// COMMANDES DOCTRINE !
-// 0. Création BDD : php bin/console doctrine:database:create
-// 1. Créer un Controller -> php bin/console make:controller
-// 2. Si la BDD a déjà été créée -> Créer une nouvelle Entity : php bin/console make:entity
-// 3. Renseigner les colonnes voulues pour la table SQL et faire une migration -> php bin/console make:migration (le nouveau fichier Entity est alors mis à jour)
-// 4. Pour actualiser la BDD avec la nouvelle table souhaitée, faire ensuite -> php bin/console doctrine:migrations:migrate
-
-// Mettre à jour la BDD :
-// 1 -> php bin/console make:migration
-// 2 -> php bin/console doctrine:migrations:migrate
-
-// Utiliser le terminal de commande pour mettre à jour une Entité : après avoir indiqué par exemple "private $truc" avec son annotation, il suffit de faire un coup de  "php bin/console make:entity --regenerate App" et les getters/setters sont générés !
-
-// Pour mettre ensuite à jour la BDD faire un "php bin/console doctrine:schema:update --dump-sql" puis "php bin/console doctrine:schema:update --force"
-
-// Pour vérifier si les Entités sont conformes, qu'il n'y a notamment pas de problèmes de mappings entre Entités, faire : "php bin/console doctrine:schema:validate"
-
-// CLEAR THE CACHE ! "php bin/console cache:clear"
-
-// LANCER LE LIVE ! php -S localhost:4000 -t public
-// http://localhost:4000/api
-
-// FIXTURES ! php bin/console doctrine:fixtures:load
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
