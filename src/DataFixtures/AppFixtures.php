@@ -138,8 +138,6 @@ class AppFixtures extends Fixture
                 ->setCity('Paris')
                 ->setPhoneNbr('06554433XX')
                 ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-                // Equivalent de "testtest" en algorithme bcrypt
-                // ->setPassword($this->passwordEncoder->encodePassword($user, 'testtest'))
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ->setRole('ROLE_USER')
                 ->setClient($client)
