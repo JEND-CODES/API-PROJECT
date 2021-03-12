@@ -17,6 +17,7 @@ class ApiController extends AbstractController
        $this->security = $security;
     }
     
+    // SANS CONNEXION ADMIN PAS D'ACCÈS À API PLATFORM
     /**
      * @Route("/", name="security_connexion")
      */
