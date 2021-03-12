@@ -34,6 +34,7 @@ class AppFixtures extends Fixture
 
         // https://packagist.org/packages/fakerphp/faker
         // composer require fakerphp/faker
+        // https://fakerphp.github.io/locales/fr_FR/
         $faker = \Faker\Factory::create('FR-fr');
 
         // Pour remettre l'Index de départ au lancement de chaque nouvelle fixture
@@ -46,7 +47,8 @@ class AppFixtures extends Fixture
         $product->setPhone('Galaxy')
                 ->setTrademark('Samsung')
                 ->setSummary($faker->paragraph(3))
-                ->setPrice(710.00)
+                ->setPrice(799.99)
+                ->setColor('White')
                 // ->setCreatedAt(new \DateTime)
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
@@ -56,7 +58,8 @@ class AppFixtures extends Fixture
         $product->setPhone('iPhone')
                 ->setTrademark('Apple')
                 ->setSummary($faker->paragraph(3))
-                ->setPrice(751.00)
+                ->setPrice(751.55)
+                ->setColor('Black')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
         $manager->persist($product);
@@ -66,6 +69,7 @@ class AppFixtures extends Fixture
                 ->setTrademark('Sony')
                 ->setSummary($faker->paragraph(3))
                 ->setPrice(369.00)
+                ->setColor('Gold')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
         $manager->persist($product);
@@ -73,6 +77,9 @@ class AppFixtures extends Fixture
         // Clients
         $client = new Client();
         $client->setName('Free')
+                ->setAddress('15 rue Lorem Ipsum')
+                ->setCity('Paris')
+                ->setPhoneNbr('01554433XX')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
         $this->addReference('Free', $client);
@@ -80,48 +87,24 @@ class AppFixtures extends Fixture
 
         $client = new Client();
         $client->setName('Bouygues')
+                ->setAddress('143 boulevard de Lorem')
+                ->setCity('Bordeaux')
+                ->setPhoneNbr('05554433XX')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
         $this->addReference('Bouygues', $client);
         $manager->persist($client);
 
         // Utilisateurs
-        // 10 utilisateurs de Free Mobile
-        for($i=1; $i<=8; $i++)
-        {
-            $user = new User();
-            $client = $this->getReference('Free');
-            $user->setUsername('user'.$i.$client->getName())
-                ->setEmail('user'.$i.$client->getName().'@test.com')
-                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-                // ->setPassword($this->passwordEncoder->encodePassword($user, 'password'))
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ->setRole('ROLE_ADMIN')
-                ->setClient($client)
-                ;
-            $manager->persist($user);
-        }
-        
-        // 10 utilisateurs de Bouygues Telecom
-        for($i=1; $i<=8; $i++)
-        {
-            $user = new User();
-            $client = $this->getReference('Bouygues');
-            $user->setUsername('user'.$i.$client->getName())
-                ->setEmail('user'.$i.$client->getName().'@test.com')
-                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ->setRole('ROLE_ADMIN')
-                ->setClient($client)
-            ;
-            $manager->persist($user);
-        }
 
         // Utilisateur Admin FREE
         $user = new User();
         $client = $this->getReference('Free');
         $user->setUsername('admin'.$client->getName())
             ->setEmail('admin'.$client->getName().'@test.com')
+            ->setAddress('10 rue Liberté')
+            ->setCity('Paris')
+            ->setPhoneNbr('06205687XX')
             ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
             ->setCreatedAt($faker->dateTimeBetween('-1 months'))
             ->setRole('ROLE_ADMIN')
@@ -134,12 +117,55 @@ class AppFixtures extends Fixture
         $client = $this->getReference('Bouygues');
         $user->setUsername('admin'.$client->getName())
             ->setEmail('admin'.$client->getName().'@test.com')
+            ->setAddress('10 rue Liberté')
+            ->setCity('Paris')
+            ->setPhoneNbr('06468679XX')
             ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
             ->setCreatedAt($faker->dateTimeBetween('-1 months'))
             ->setRole('ROLE_ADMIN')
             ->setClient($client)
             ;
         $manager->persist($user);
+        
+        // 10 utilisateurs de Free Mobile
+        for($i=1; $i<=8; $i++)
+        {
+            $user = new User();
+            $client = $this->getReference('Free');
+            $user->setUsername('user'.$i.$client->getName())
+                ->setEmail('user'.$i.$client->getName().'@test.com')
+                ->setAddress('10 rue Liberté')
+                ->setCity('Paris')
+                ->setPhoneNbr('06554433XX')
+                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                // Equivalent de "testtest" en algorithme bcrypt
+                // ->setPassword($this->passwordEncoder->encodePassword($user, 'testtest'))
+                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                ->setRole('ROLE_USER')
+                ->setClient($client)
+                ;
+            $manager->persist($user);
+        }
+        
+        // 10 utilisateurs de Bouygues Telecom
+        for($i=1; $i<=8; $i++)
+        {
+            $user = new User();
+            $client = $this->getReference('Bouygues');
+            $user->setUsername('user'.$i.$client->getName())
+                ->setEmail('user'.$i.$client->getName().'@test.com')
+                ->setAddress('10 rue Liberté')
+                ->setCity('Paris')
+                ->setPhoneNbr('06182443XX')
+                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                ->setRole('ROLE_USER')
+                ->setClient($client)
+            ;
+            $manager->persist($user);
+        }
+
+        
 
         $manager->flush();
 
