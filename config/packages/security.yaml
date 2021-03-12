@@ -37,18 +37,36 @@ security:
             lazy: true
             provider: app_user_provider
 
+            form_login:
+                login_path: security_connexion
+                check_path: security_connexion
+                default_target_path: gotoapi
+      
+            logout:
+                path: security_disconnect
+                target: security_connexion
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+
+    # Users with the ROLE_ADMIN role will also have the ROLE_USER role. And users with ROLE_SUPER_ADMIN, will automatically have ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH and ROLE_USER (inherited from ROLE_ADMIN)
+    # https://symfony.com/doc/current/security.html#hierarchical-roles
+
+    # role_hierarchy:
+        # ROLE_ADMIN: ROLE_USER
+        # ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        # Allows accessing the Swagger UI
+        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/clients, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/products, roles: IS_AUTHENTICATED_FULLY }

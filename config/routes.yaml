@@ -1,3 +1,6 @@
 authentication_token:
     path: /api/login
     methods: ['POST']
+
+#swagger_ui:
+  #path: /api/docs
