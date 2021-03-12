@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
+// On peut ajouter cette annotation dans la section ApiResource()
+// shortName="Téléphones",
+// Pour changer le nom des routes..
+
 /**
  * @ApiResource(
  * itemOperations={
@@ -31,37 +35,51 @@ class Product
 {
     /**
      * @ORM\Id()
+     * 
      * @ORM\GeneratedValue()
+     * 
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=80, unique=true)
+     * 
      * @Assert\NotBlank
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=80)
+     * 
      * @Assert\NotBlank
      */
     private $trademark;
 
     /**
      * @ORM\Column(type="text")
+     * 
      * @Assert\NotBlank
      */
     private $summary;
 
     /**
+     * @ORM\Column(type="string", length=40)
+     * 
+     * @Assert\NotBlank
+     */
+    private $color;
+
+    /**
      * @ORM\Column(type="float")
+     * 
      * @Assert\NotBlank
      */
     private $price;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
      * @Assert\NotBlank
      */
     private $createdAt;
@@ -127,6 +145,18 @@ class Product
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
