@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BILEMO - API WEB SERVICE{% endblock %}
+
+{% block body %}
+
+<section class="change-font">
+
+<div class="background-image" style="background:url('{{ asset('images/login-background.jpg') }}');"></div>
+
+<div class="center-align white-text">
+
+    <h4>BILEMO</h4>
+    <p>API WEB SERVICE</p>
+
+    <img class="main-logo" src="{{ asset('images/bilemo-logo.png') }}" alt="Bilemo API" title="Bilemo API">
+
+</div>
+
+{% if app.user %}
+
+<div class="center-align white-text">
+
+    <div class="medium-spacer"></div>
+
+    <a href="{{ path('gotoapi') }}" class="btn waves-effect waves-light blue lighten-3">API PLATFORM</a>
+
+    <div class="regular-spacer"></div>
+    <div class="regular-spacer"></div>
+
+    <a href="{{ path('security_disconnect') }}" class="btn waves-effect waves-light teal lighten-3">DÉCONNEXION</a>
+
+    <div class="regular-spacer"></div>
+    <div class="regular-spacer"></div>
+
+    <a href="/api/docs?ui=re_doc" class="btn waves-effect waves-light indigo lighten-3">DOCUMENTATION</a>
+
+</div>
+
+{% else %}
+
+<div class="row" style="margin-top:30px;">
+
+    <div class="col s12 l4 offset-l4">
+
+        <div class="card" style="background-color:rgba(255,255,255,0.9);border-radius:20px;">
+
+            <div class="card-content">
+
+                {% if error %}
+
+                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                
+                {% endif %}
+
+                <form action="{{ path('security_connexion')}}" method="post">
+
+                    <div class="row">
+
+                        <div class="input-field col s12" style="padding-left:40px;padding-right:40px;">
+
+                            <i class="fas fa-user" style="color:#1e88e5;"></i>
+
+                            <input placeholder="Identifiant" name="_username" type="text" class="validate">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="input-field col s12" style="padding-left:40px;padding-right:40px;">
+
+                            <i class="fas fa-key" style="color:#8e24aa;"></i>
+
+                            <input placeholder="Mot de passe" name="_password" type="password" class="validate">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row center-align">
+
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Connexion</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="center-align white-text">
+
+    <a href="/api/docs?ui=re_doc" class="btn waves-effect waves-light indigo lighten-3">DOCUMENTATION</a>
+
+</div>
+
+{% endif %}
+
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
