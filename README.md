@@ -4,6 +4,8 @@
 
 ## DIAGRAMMES UML
 
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
+
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Cas_Gestion_Api_P7_V1-Page-1.png)
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/S%C3%A9quence_Authentification_P7_V2-Page-1.png)
