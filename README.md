@@ -16,7 +16,7 @@
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P7_V3.png)
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Concepteur_BDD_Bilemo_v3.JPG)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Concepteur_BDD_Bilemo_v3.png)
 
 ## INSTRUCTIONS D'INSTALLATION
 ``` bash
