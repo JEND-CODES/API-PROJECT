@@ -100,15 +100,15 @@ class Client
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Consumer", mappedBy="client", orphanRemoval=true)
      * 
      * @ApiSubresource()
      */
-    private $users;
+    private $consumers;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->consumers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,29 +129,29 @@ class Client
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Consumer[]
      */
-    public function getUsers(): Collection
+    public function getConsumers(): Collection
     {
-        return $this->users;
+        return $this->consumers;
     }
 
-    public function addUser(User $user): self
+    public function addConsumer(Consumer $consumer): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setClient($this);
+        if (!$this->consumers->contains($consumer)) {
+            $this->consumers[] = $consumer;
+            $consumer->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeConsumer(Consumer $consumer): self
     {
-        if ($this->users->removeElement($user)) {
+        if ($this->consumers->removeElement($consumer)) {
             // set the owning side to null (unless already changed)
-            if ($user->getClient() === $this) {
-                $user->setClient(null);
+            if ($consumer->getClient() === $this) {
+                $consumer->setClient(null);
             }
         }
 

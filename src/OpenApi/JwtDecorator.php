@@ -1,4 +1,7 @@
 <?php
+// api/src/OpenApi/JwtDecorator.php
+// https://api-platform.com/docs/core/jwt/
+// https://stackoverflow.com/questions/66427570/configuring-api-platform-to-include-header-in-openapi-aka-swagger-documentatio
 
 declare(strict_types=1);
 

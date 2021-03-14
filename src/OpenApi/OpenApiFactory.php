@@ -1,4 +1,6 @@
 <?php
+// https://api-platform.com/docs/core/openapi/
+// https://github.com/thomas-claireau/PHP-P7-Openclassrooms/blob/master/src/Entity/User.php
 
 namespace App\OpenApi;
 

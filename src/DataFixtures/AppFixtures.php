@@ -2,11 +2,11 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
+use App\Entity\Consumer;
 use App\Entity\Client;
 use App\Entity\Product;
 
-use App\Repository\UserRepository;
+use App\Repository\ConsumerRepository;
 use App\Repository\ClientRepository;
 use App\Repository\ProductRepository;
 
@@ -20,11 +20,11 @@ use Doctrine\Persistence\ObjectManager;
 class AppFixtures extends Fixture
 {
     
-    public function __construct(ClientRepository $clientRepository, ProductRepository $productRepository, UserRepository $userRepository /*, UserPasswordEncoderInterface $encoder */)
+    public function __construct(ClientRepository $clientRepository, ProductRepository $productRepository, ConsumerRepository $consumerRepository /*, UserPasswordEncoderInterface $encoder */)
 	{
 		$this->clientRepository = $clientRepository;
 		$this->productRepository = $productRepository;
-		$this->userRepository = $userRepository;
+		$this->consumerRepository = $consumerRepository;
 
 		// $this->encoder = $encoder;
 	}
@@ -40,7 +40,7 @@ class AppFixtures extends Fixture
         // Pour remettre l'Index de départ au lancement de chaque nouvelle fixture
         $this->clientRepository->fixtureIndex();
 		$this->productRepository->fixtureIndex();
-		$this->userRepository->fixtureIndex();
+		$this->consumerRepository->fixtureIndex();
 
         // Téléphones
         $product = new Product();
@@ -95,12 +95,12 @@ class AppFixtures extends Fixture
         $this->addReference('Bouygues', $client);
         $manager->persist($client);
 
-        // Utilisateurs
+        // Utilisateurs = Consumers
 
         // Utilisateur Admin FREE
-        $user = new User();
+        $consumer = new Consumer();
         $client = $this->getReference('Free');
-        $user->setUsername('admin'.$client->getName())
+        $consumer->setUsername('admin'.$client->getName())
             ->setEmail('admin'.$client->getName().'@test.com')
             ->setAddress('10 rue Liberté')
             ->setCity('Paris')
@@ -110,12 +110,12 @@ class AppFixtures extends Fixture
             ->setRole('ROLE_ADMIN')
             ->setClient($client)
             ;
-        $manager->persist($user);
+        $manager->persist($consumer);
 
         // Utilisateur Admin BOUYGUES
-        $user = new User();
+        $consumer = new Consumer();
         $client = $this->getReference('Bouygues');
-        $user->setUsername('admin'.$client->getName())
+        $consumer->setUsername('admin'.$client->getName())
             ->setEmail('admin'.$client->getName().'@test.com')
             ->setAddress('10 rue Liberté')
             ->setCity('Paris')
@@ -125,33 +125,35 @@ class AppFixtures extends Fixture
             ->setRole('ROLE_ADMIN')
             ->setClient($client)
             ;
-        $manager->persist($user);
+        $manager->persist($consumer);
         
         // 10 utilisateurs de Free Mobile
         for($i=1; $i<=8; $i++)
         {
-            $user = new User();
+            $consumer = new Consumer();
             $client = $this->getReference('Free');
-            $user->setUsername('user'.$i.$client->getName())
-                ->setEmail('user'.$i.$client->getName().'@test.com')
+            $consumer->setUsername('consumer'.$i.$client->getName())
+                ->setEmail('consumer'.$i.$client->getName().'@test.com')
                 ->setAddress('10 rue Liberté')
                 ->setCity('Paris')
                 ->setPhoneNbr('06554433XX')
                 ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                // Equivalent de "testtest" en algorithme bcrypt
+                // ->setPassword($this->passwordEncoder->encodePassword($consumer, 'testtest'))
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ->setRole('ROLE_USER')
                 ->setClient($client)
                 ;
-            $manager->persist($user);
+            $manager->persist($consumer);
         }
         
         // 10 utilisateurs de Bouygues Telecom
         for($i=1; $i<=8; $i++)
         {
-            $user = new User();
+            $consumer = new Consumer();
             $client = $this->getReference('Bouygues');
-            $user->setUsername('user'.$i.$client->getName())
-                ->setEmail('user'.$i.$client->getName().'@test.com')
+            $consumer->setUsername('consumer'.$i.$client->getName())
+                ->setEmail('consumer'.$i.$client->getName().'@test.com')
                 ->setAddress('10 rue Liberté')
                 ->setCity('Paris')
                 ->setPhoneNbr('06182443XX')
@@ -160,7 +162,7 @@ class AppFixtures extends Fixture
                 ->setRole('ROLE_USER')
                 ->setClient($client)
             ;
-            $manager->persist($user);
+            $manager->persist($consumer);
         }
 
         

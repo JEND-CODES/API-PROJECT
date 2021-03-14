@@ -2,31 +2,31 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
+use App\Entity\Consumer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Consumer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Consumer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Consumer[]    findAll()
+ * @method Consumer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository
+class ConsumerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, Consumer::class);
     }
 
     public function fixtureIndex()
 	{
 		$connection = $this->getEntityManager()->getConnection();
-		$connection->exec("ALTER TABLE user AUTO_INCREMENT = 1;");
+		$connection->exec("ALTER TABLE consumer AUTO_INCREMENT = 1;");
 	}
 
     // /**
-    //  * @return User[] Returns an array of User objects
+    //  * @return Consumer[] Returns an array of Consumer objects
     //  */
     /*
     public function findByExampleField($value)
@@ -43,7 +43,7 @@ class UserRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?User
+    public function findOneBySomeField($value): ?Consumer
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')

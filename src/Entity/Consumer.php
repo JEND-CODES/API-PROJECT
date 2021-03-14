@@ -1,9 +1,9 @@
 <?php
 
-// Consulter la liste des utilisateurs inscrits liés à un client sur le site web : GET /api/clients/{id}/users -> "groups"={"clients_users"} ou GET /api/clients
-// Consulter le détail d’un utilisateur inscrit lié à un client : GET /api/users/{id} ou GET /api/clients/{id}/users/{users}
-// Ajouter un nouvel utilisateur lié à un client : POST /api/users
-// Supprimer un utilisateur ajouté par un client : DELETE /api/users/{id}
+// Consulter la liste des utilisateurs inscrits liés à un client sur le site web : GET /api/clients/{id}/consumers -> "groups"={"clients_consumers"} ou GET /api/clients
+// Consulter le détail d’un utilisateur inscrit lié à un client : GET /api/consumers/{id} ou GET /api/clients/{id}/consumers/{consumers}
+// Ajouter un nouvel utilisateur lié à un client : POST /api/consumers
+// Supprimer un utilisateur ajouté par un client : DELETE /api/consumers/{id}
 
 // NOTE ! ON NE DEMANDE PAS DE PUT OU DE PATCH POUR UN UTILISATEUR LIÉ À CLIENT ?? SEULEMENT AJOUTER OU SUPPRIMER ??
 
@@ -34,9 +34,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  collectionOperations={
  *      "get",
  *      "post",
- *      "api_clients_users_get_subresource"={
+ *      "api_clients_consumers_get_subresource"={
  *          "normalization_context"={
- *               "groups"={"clients_users"}
+ *               "groups"={"clients_consumers"}
  *          }
  *      }
  *  },
@@ -44,9 +44,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *      "groups"={"read"}
  *  }
  * )
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
  */
-class User implements UserInterface
+class Consumer implements UserInterface
 {
 
     /**
@@ -56,7 +56,7 @@ class User implements UserInterface
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      * 
      * @ApiSubresource()
      */
@@ -67,18 +67,18 @@ class User implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      * 
      * @Assert\NotBlank
      * 
      * @Assert\Email
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $email;
 
@@ -87,7 +87,7 @@ class User implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $address;
 
@@ -96,7 +96,7 @@ class User implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $city;
 
@@ -105,7 +105,7 @@ class User implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $phoneNbr;
 
@@ -114,7 +114,7 @@ class User implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $password;
 
@@ -123,19 +123,19 @@ class User implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=80)
      * 
-     * @Groups({"read", "clients_users"})
+     * @Groups({"read", "clients_consumers"})
      */
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="consumers")
      * 
      * @ORM\JoinColumn(nullable=false)
      * 
