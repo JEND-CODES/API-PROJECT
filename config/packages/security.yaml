@@ -1,14 +1,14 @@
 security:
     encoders:
-        App\Entity\User:
+        App\Entity\Consumer:
             algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_consumer_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Consumer
                 property: username
     firewalls:
         dev:
@@ -28,14 +28,14 @@ security:
             pattern: ^/api/
             stateless: true
             anonymous: true
-            provider: app_user_provider
+            provider: app_consumer_provider
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
         main:
             anonymous: true
             lazy: true
-            provider: app_user_provider
+            provider: app_consumer_provider
 
             form_login:
                 login_path: security_connexion
@@ -68,5 +68,5 @@ security:
 
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/clients, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/consumers, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/products, roles: IS_AUTHENTICATED_FULLY }
