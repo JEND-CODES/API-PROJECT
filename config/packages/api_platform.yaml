@@ -1,12 +1,19 @@
 api_platform:
+
     title: 'BILEMO'
+
     description: "API WEB SERVICE"
+
     version: '1.0.0'
+
     show_webby: false
+
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
+
     patch_formats:
         json: ['application/merge-patch+json']
+
     swagger:
         versions: [3]
         api_keys:
@@ -14,18 +21,16 @@ api_platform:
                 name: Authorization
                 type: header
 
-    #enable_swagger_ui: true
-    #enable_re_doc: true
-    #enable_docs: true
-                
-    #http_cache:
-     #   invalidation:
-      #      enabled: true
-       #     varnish_urls: []
-        #max_age: 0
-       # shared_max_age: 3600
-       # vary: ['Content-Type', 'Authorization', 'Origin']
-      #  public: true
-    #collection:
+    # CF. https://api-platform.com/docs/core/configuration/
+    http_cache:
+        # Génère des Etags pour les réponses
+        # Nécessaires pour la mise en cache
+        etag: true
+        # Durée de validité de la réponse
+        # Indique la quantité de temps maximale où la réponse sera considérée comme fraîche
+        max_age: 3600
+        shared_max_age: 3600 
+
+    # collection:
        # pagination:
            # items_per_page: 20
