@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
-
-
 // NOTE ! ON NE DEMANDE D'AFFICHER DANS L'API QU'UN SEUL CLIENT DE BILEMO !?
 // NOTE ! ON NE DEMANDE PAS DE CRÉER, MODIFIER OU SUPPRIMER UN CLIENT ?
 
@@ -25,10 +23,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *  attributes={
+ *      "security"="is_granted('ROLE_ADMIN')",
+ *      "security_message"="Ressources et opérations réservées aux administrateurs"
+ * },
  *  itemOperations={
  *      "get"={
- *          "normalizationContext"={"groups"={"client_details_read"}},
- *          "access_control"="is_granted('ROLE_ADMIN')"
+ *          "normalizationContext"={
+ *              "groups"={"client_details_read"}
+ *          }
  *      },
  *      "put",
  *      "patch",
@@ -36,7 +39,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *  }, 
  *  collectionOperations={
  *      "get"={
- *          "normalizationContext"={"groups"={"client_read"}}
+ *          "normalizationContext"={
+ *              "groups"={"client_read"}
+ *          }
  *      },
  *      "post"
  *  }

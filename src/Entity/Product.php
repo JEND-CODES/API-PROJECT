@@ -18,15 +18,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
+ * attributes={
+ *      "order"={"id":"DESC"}
+ * },
  * itemOperations={
  *      "get",
- *      "put",
- *      "patch",
- *      "delete"
+ *      "put"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Opération réservée aux administrateurs"
+ *      },
+ *      "patch"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Opération réservée aux administrateurs"
+ *      },
+ *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Opération réservée aux administrateurs"
+ *      }
  *  },
  *  collectionOperations={
  *      "get",
- *      "post"
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Opération réservée aux administrateurs"
+ *      }
  *  }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")

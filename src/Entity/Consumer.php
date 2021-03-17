@@ -20,7 +20,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ApiResource(
  *  attributes={
- *      "order"={"id":"DESC"}
+ *      "order"={"id":"DESC"},
+ *      "security"="is_granted('ROLE_ADMIN')",
+ *      "security_message"="Ressources et opérations réservées aux administrateurs"
  *  },
  *  paginationItemsPerPage=2,
  *  itemOperations={
