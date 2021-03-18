@@ -2,6 +2,8 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2dc074a9d3154e6a935e2365711a1b61)](https://www.codacy.com/gh/JEND-CODES/API-PROJECT/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JEND-CODES/API-PROJECT&amp;utm_campaign=Badge_Grade)
 
+[![SymfonyInsight](https://insight.symfony.com/projects/e987388d-6340-4e8c-aea9-b082f74aa4e9/big.svg)](https://insight.symfony.com/projects/e987388d-6340-4e8c-aea9-b082f74aa4e9)
+
 ## HOMEPAGE
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
