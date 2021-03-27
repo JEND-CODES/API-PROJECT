@@ -2,7 +2,7 @@ api_platform:
 
     title: 'BILEMO'
 
-    description: "API WEB SERVICE"
+    description: "<img src='/images/api-logo.png' alt='API WEB SERVICE' title='API WEB SERVICE' /><br /><br /><strong>API WEB SERVICE</strong><br /><br /><a href='<DOMAIN_NAME>'>HOMEPAGE</a>&nbsp;&nbsp;<a href='<DOMAIN_NAME>/api/docs?ui=re_doc'>DOCUMENTATION</a>&nbsp;&nbsp;<a href='<DOMAIN_NAME>/disconnect'>LOGOUT</a>"
 
     version: '1.0.0'
 
