@@ -1,10 +1,4 @@
 <?php
-// api/src/OpenApi/JwtDecorator.php
-// https://api-platform.com/docs/core/jwt/
-// https://stackoverflow.com/questions/66427570/configuring-api-platform-to-include-header-in-openapi-aka-swagger-documentatio
-
-// Autre modèle de JWT Decorator :
-// https://github.com/sjaulin/bilemo/blob/main/src/OpenApi/JwtDecorator.php
 
 declare(strict_types=1);
 
