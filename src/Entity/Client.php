@@ -25,13 +25,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *  attributes={
  *      "security"="is_granted('ROLE_ADMIN')",
- *      "security_message"="Ressources et opérations réservées aux administrateurs"
+ *      "security_message"="Resources and operations reserved for administrators"
  * },
  *  itemOperations={
  *      "get"={
  *          "normalizationContext"={
  *              "groups"={"client_details_read"}
- *          }
+ *          }, 
+ *          "openapi_context" = {
+ * 				"summary" = "Single client informations",
+ *              "description" = "Informations retrieval for a single Bilemo client"
+ *           }
  *      },
  *      "put",
  *      "patch",
@@ -41,9 +45,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "get"={
  *          "normalizationContext"={
  *              "groups"={"client_read"}
- *          }
+ *          }, 
+ *          "openapi_context" = {
+ * 				"summary" = "Query to the list of clients",
+ *              "description" = "This collection of resources displays the list of Bilemo clients"
+ *           }
  *      },
- *      "post"
+ *      "post"={
+ *          "openapi_context" = {
+ * 				"summary" = "Creation of a new client",
+ *              "description" = "The creation of a new client must be associated with a consumer account"
+ *           }
+ *      },
  *  }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")

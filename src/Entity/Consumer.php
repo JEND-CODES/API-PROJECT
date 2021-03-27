@@ -22,12 +22,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  attributes={
  *      "order"={"id":"DESC"},
  *      "security"="is_granted('ROLE_ADMIN')",
- *      "security_message"="Ressources et opérations réservées aux administrateurs"
+ *      "security_message"="Resources and operations reserved for administrators"
  *  },
  *  paginationItemsPerPage=2,
  *  itemOperations={
  *      "get"={
- *         "normalization_context"={"groups"={"read", "client_info"}}
+ *         "normalization_context"={
+ *         "groups"={"read", "client_info"}},
+ *         "openapi_context" = {
+ * 				"summary" = "Consult the details of a consumer linked to a client",
+ *              "description" = "Query by identifier to consult consumer's informations"
+ *          }
  *      },
  *      "put",
  *      "patch",
@@ -39,6 +44,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *      "api_clients_consumers_get_subresource"={
  *          "normalization_context"={
  *               "groups"={"clients_consumers"}
+ *          },
+ *          "openapi_context" = {
+ * 				"summary" = "Consult the list of consumers linked to a client",
+ *              "description" = "Query by client ID to display the list of consumers"
  *          }
  *      }
  *  },

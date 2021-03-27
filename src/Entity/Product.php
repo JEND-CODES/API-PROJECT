@@ -22,25 +22,35 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      "order"={"id":"DESC"}
  * },
  * itemOperations={
- *      "get",
+ *      "get"={
+ *          "openapi_context" = {
+ * 				"summary" = "View the details of a product",
+ *              "description" = "Query to display a Bilemo product"
+ *           }
+ *      },
  *      "put"={
  *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Opération réservée aux administrateurs"
+ *          "security_message"="Operation reserved for administrators"
  *      },
  *      "patch"={
  *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Opération réservée aux administrateurs"
+ *          "security_message"="Operation reserved for administrators"
  *      },
  *      "delete"={
  *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Opération réservée aux administrateurs"
+ *          "security_message"="Operation reserved for administrators"
  *      }
  *  },
  *  collectionOperations={
- *      "get",
+ *      "get"={
+ *          "openapi_context" = {
+ * 				"summary" = "Consult the product list",
+ *              "description" = "Query to display all Bilemo products"
+ *           }
+ *      },
  *      "post"={
  *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Opération réservée aux administrateurs"
+ *          "security_message"="Operation reserved for administrators"
  *      }
  *  }
  * )
