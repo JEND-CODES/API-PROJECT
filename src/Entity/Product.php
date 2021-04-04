@@ -1,20 +1,10 @@
 <?php
 
-// Consulter la liste des produits BileMo -> GET /api/products
-// Consulter les détails d’un produit BileMo -> GET /api/products/{id}
-
-// NOTE ! ON NE NOUS DEMANDE PAS D'AJOUTER, DE MODIFIER OU DE SUPPRIMER DES PRODUITS
-// NOTE ! RETIRER PUT, PATCH, DELETE ET POST DES OPERATIONS...?
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
-
-// On peut ajouter cette annotation dans la section ApiResource()
-// shortName="Téléphones",
-// Pour changer le nom des routes..
 
 /**
  * @ApiResource(

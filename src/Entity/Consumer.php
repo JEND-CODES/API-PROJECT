@@ -1,12 +1,5 @@
 <?php
 
-// Consulter la liste des utilisateurs inscrits liés à un client sur le site web : GET /api/clients/{id}/consumers -> "groups"={"clients_consumers"} ou GET /api/clients
-// Consulter le détail d’un utilisateur inscrit lié à un client : GET /api/consumers/{id} ou GET /api/clients/{id}/consumers/{consumers}
-// Ajouter un nouvel utilisateur lié à un client : POST /api/consumers
-// Supprimer un utilisateur ajouté par un client : DELETE /api/consumers/{id}
-
-// NOTE ! ON NE DEMANDE PAS DE PUT OU DE PATCH POUR UN UTILISATEUR LIÉ À CLIENT ?? SEULEMENT AJOUTER OU SUPPRIMER ??
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -40,7 +33,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  },
  *  collectionOperations={
  *      "get",
- *      "post",
+ *      "post"={
+ *         "openapi_context" = {
+ * 				"summary" = "Creates a new consumer linked to a client",
+ *              "description" = "The new consumer will receive an email"
+ *          }
+ *      },
  *      "api_clients_consumers_get_subresource"={
  *          "normalization_context"={
  *               "groups"={"clients_consumers"}

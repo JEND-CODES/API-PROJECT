@@ -14,13 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
-// NOTE ! ON NE DEMANDE D'AFFICHER DANS L'API QU'UN SEUL CLIENT DE BILEMO !?
-// NOTE ! ON NE DEMANDE PAS DE CRÉER, MODIFIER OU SUPPRIMER UN CLIENT ?
-
-// 2 types d'opérations (itemOperations & collectionOperations) qui ciblent : 
-// Soit des collections (ex: get -> /api/clients)
-// Soit des items, des ressources spécifiques (ex: /api/clients/{id})
-
 /**
  * @ApiResource(
  *  attributes={
@@ -34,7 +27,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          }, 
  *          "openapi_context" = {
  * 				"summary" = "Single client informations",
- *              "description" = "Informations retrieval for a single Bilemo client"
+ *              "description" = "Informations retrieval for a single Bilemo client",
+ *              "tags" = {"One client"}
  *           }
  *      },
  *      "put",
