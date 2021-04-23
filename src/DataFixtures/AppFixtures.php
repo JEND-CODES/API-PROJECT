@@ -5,17 +5,12 @@ namespace App\DataFixtures;
 use App\Entity\Consumer;
 use App\Entity\Client;
 use App\Entity\Product;
-
 use App\Repository\ConsumerRepository;
 use App\Repository\ClientRepository;
 use App\Repository\ProductRepository;
-
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-// Pour générer les Fixtures entrer : "php bin/console doctrine:fixtures:load"
 
 class AppFixtures extends Fixture
 {
@@ -30,16 +25,11 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-
-        // https://packagist.org/packages/fakerphp/faker
-        // composer require fakerphp/faker
-        // https://fakerphp.github.io/locales/fr_FR/
         $faker = \Faker\Factory::create('FR-fr');
 
-        // Pour remettre l'Index de départ au lancement de chaque nouvelle fixture
         $this->clientRepository->fixtureIndex();
-		$this->productRepository->fixtureIndex();
-		$this->consumerRepository->fixtureIndex();
+        $this->productRepository->fixtureIndex();
+        $this->consumerRepository->fixtureIndex();
 
         // TÉLÉPHONES PROPOSÉS PAR BILEMO
         $product = new Product();
@@ -48,7 +38,6 @@ class AppFixtures extends Fixture
                 ->setSummary('Caractéristiques : '.$faker->paragraph(3))
                 ->setPrice(799.99)
                 ->setColor('White')
-                // ->setCreatedAt(new \DateTime)
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
         $manager->persist($product);
@@ -74,7 +63,7 @@ class AppFixtures extends Fixture
                 ;
         $manager->persist($product);
 
-        // COMPTE CLIENT BILEMO
+        // COMPTE MANAGER BILEMO
         $client = new Client();
         $client->setName('Bilemo')
                 ->setAddress('154 rue de Belleville')
@@ -124,60 +113,60 @@ class AppFixtures extends Fixture
         $consumer = new Consumer();
         $client = $this->getReference('bilemo-ref');
         $consumer->setUsername('admin')
-            ->setEmail('admin@test.com')
-            ->setAddress($faker->secondaryAddress())
-            ->setCity('Paris')
-            ->setPhoneNbr('06491076XX')
-            ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-            ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-            ->setRole('ROLE_ADMIN')
-            ->setClient($client)
-            ;
+                ->setEmail('admin@test.com')
+                ->setAddress($faker->secondaryAddress())
+                ->setCity('Paris')
+                ->setPhoneNbr('06491076XX')
+                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                ->setRole('ROLE_ADMIN')
+                ->setClient($client)
+                ;
         $manager->persist($consumer);
  
         // UTILISATEUR ADMIN FREE
         $consumer = new Consumer();
         $client = $this->getReference('free-ref');
         $consumer->setUsername('freeadmin')
-            ->setEmail('freeadmin@test.com')
-            ->setAddress($faker->secondaryAddress())
-            ->setCity('Paris')
-            ->setPhoneNbr('06205687XX')
-            ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-            ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-            ->setRole('ROLE_ADMIN')
-            ->setClient($client)
-            ;
+                ->setEmail('freeadmin@test.com')
+                ->setAddress($faker->secondaryAddress())
+                ->setCity('Paris')
+                ->setPhoneNbr('06205687XX')
+                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                ->setRole('ROLE_ADMIN')
+                ->setClient($client)
+                ;
         $manager->persist($consumer);
 
         // UTILISATEUR ADMIN ORANGE
         $consumer = new Consumer();
         $client = $this->getReference('orange-ref');
         $consumer->setUsername('orangeadmin')
-            ->setEmail('orangeadmin@test.com')
-            ->setAddress($faker->secondaryAddress())
-            ->setCity('Marseille')
-            ->setPhoneNbr('06205687XX')
-            ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-            ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-            ->setRole('ROLE_ADMIN')
-            ->setClient($client)
-            ;
+                ->setEmail('orangeadmin@test.com')
+                ->setAddress($faker->secondaryAddress())
+                ->setCity('Marseille')
+                ->setPhoneNbr('06205687XX')
+                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                ->setRole('ROLE_ADMIN')
+                ->setClient($client)
+                ;
         $manager->persist($consumer);
 
         // UTILISATEUR ADMIN BOUYGUES
         $consumer = new Consumer();
         $client = $this->getReference('bouygues-ref');
         $consumer->setUsername('bouyghesadmin')
-            ->setEmail('bouyghesadmin@test.com')
-            ->setAddress($faker->secondaryAddress())
-            ->setCity('Bordeaux')
-            ->setPhoneNbr('06468679XX')
-            ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-            ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-            ->setRole('ROLE_ADMIN')
-            ->setClient($client)
-            ;
+                ->setEmail('bouyghesadmin@test.com')
+                ->setAddress($faker->secondaryAddress())
+                ->setCity('Bordeaux')
+                ->setPhoneNbr('06468679XX')
+                ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                ->setRole('ROLE_ADMIN')
+                ->setClient($client)
+                ;
         $manager->persist($consumer);
         
         // 3 UTILISATEURS DE FREE MOBILE
@@ -186,17 +175,15 @@ class AppFixtures extends Fixture
             $consumer = new Consumer();
             $client = $this->getReference('free-ref');
             $consumer->setUsername('consumer'.$i.$client->getName())
-                ->setEmail('consumer'.$i.$client->getName().'@test.com')
-                ->setAddress($faker->secondaryAddress())
-                ->setCity('Paris')
-                ->setPhoneNbr('06554433XX')
-                // Equivalent de "testtest" en algorithme bcrypt
-                // ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-                ->setPassword($this->encoder->encodePassword($consumer, 'testtest'))
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ->setRole('ROLE_USER')
-                ->setClient($client)
-                ;
+                    ->setEmail('consumer'.$i.$client->getName().'@test.com')
+                    ->setAddress($faker->secondaryAddress())
+                    ->setCity('Paris')
+                    ->setPhoneNbr('06554433XX')
+                    ->setPassword($this->encoder->encodePassword($consumer, 'testtest'))
+                    ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                    ->setRole('ROLE_USER')
+                    ->setClient($client)
+                    ;
             $manager->persist($consumer);
         }
 
@@ -206,16 +193,15 @@ class AppFixtures extends Fixture
             $consumer = new Consumer();
             $client = $this->getReference('orange-ref');
             $consumer->setUsername('consumer'.$i.$client->getName())
-                ->setEmail('consumer'.$i.$client->getName().'@test.com')
-                ->setAddress($faker->secondaryAddress())
-                ->setCity('Marseille')
-                ->setPhoneNbr('06182443XX')
-                // ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-                ->setPassword($this->encoder->encodePassword($consumer, 'testtest'))
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ->setRole('ROLE_USER')
-                ->setClient($client)
-            ;
+                    ->setEmail('consumer'.$i.$client->getName().'@test.com')
+                    ->setAddress($faker->secondaryAddress())
+                    ->setCity('Marseille')
+                    ->setPhoneNbr('06182443XX')
+                    ->setPassword($this->encoder->encodePassword($consumer, 'testtest'))
+                    ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                    ->setRole('ROLE_USER')
+                    ->setClient($client)
+                    ;
             $manager->persist($consumer);
         }
         
@@ -225,16 +211,15 @@ class AppFixtures extends Fixture
             $consumer = new Consumer();
             $client = $this->getReference('bouygues-ref');
             $consumer->setUsername('consumer'.$i.$client->getName())
-                ->setEmail('consumer'.$i.$client->getName().'@test.com')
-                ->setAddress($faker->secondaryAddress())
-                ->setCity('Bordeaux')
-                ->setPhoneNbr('06182443XX')
-                // ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
-                ->setPassword($this->encoder->encodePassword($consumer, 'testtest'))
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ->setRole('ROLE_USER')
-                ->setClient($client)
-            ;
+                    ->setEmail('consumer'.$i.$client->getName().'@test.com')
+                    ->setAddress($faker->secondaryAddress())
+                    ->setCity('Bordeaux')
+                    ->setPhoneNbr('06182443XX')
+                    ->setPassword($this->encoder->encodePassword($consumer, 'testtest'))
+                    ->setCreatedAt($faker->dateTimeBetween('-1 months'))
+                    ->setRole('ROLE_USER')
+                    ->setClient($client)
+                    ;
             $manager->persist($consumer);
         }
 

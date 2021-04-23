@@ -19,7 +19,6 @@ final class JwtDecorator implements OpenApiFactoryInterface
 
     public function __invoke(array $context = []): OpenApi
     {
-        // $openApi = ($this->decorated)($context);
         $openApi = $this->decorated->__invoke($context);
 
         $schemas = $openApi->getComponents()->getSchemas();
@@ -71,51 +70,9 @@ final class JwtDecorator implements OpenApiFactoryInterface
 
         $requestBody = new Model\RequestBody('Generate new JWT Token', $content);
 
-        /* $requestBody = new Model\RequestBody(
-            $description = 'Generate new JWT Token',
-            $content = new \ArrayObject([
-                'application/json' => [
-                    'schema' => [
-                        '$ref' => '#/components/schemas/Credentials',
-                    ],
-                ],
-            ]),
-        ); */
-
         $post = new Model\Operation('postCredentialsItem', ['Token'], $responses, 'Get JWT token to login.', 'Enter your credentials to generate a JWT Token', new Model\ExternalDocumentation, [], $requestBody);
 
-        /* $postOperation = new Model\Operation(
-            'postCredentialsItem',
-            $tags = [],
-            $responses = [
-                '200' => [
-                    'description' => 'Get JWT token',
-                    'content' => [
-                        'application/json' => [
-                            'schema' => [
-                                '$ref' => '#/components/schemas/Token',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            $summary = 'Get JWT token to login.',
-            $description = '',
-            $externalDocs = null,
-            $parameters = [],
-            $requestBody
-        ); */
-
-
         $pathItem = new Model\PathItem('JWT Token', null, null, null, null, $post);
-
-        /* $pathItem = new Model\PathItem(
-            $ref = 'JWT Token',
-            $summary = null,
-            $get = null,
-            $put = null,
-            $post = $postOperation
-        ); */
 
         $openApi->getPaths()->addPath('/api/login', $pathItem);
         

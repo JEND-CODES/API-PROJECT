@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ApiController extends AbstractController
 {
+    /**
+     * @var Security
+     */
     private $security;
 
     public function __construct(Security $security)
@@ -19,8 +23,10 @@ class ApiController extends AbstractController
     
     /**
      * @Route("/", name="security_connexion")
+     * @param AuthenticationUtils $utils
+     * @return Response
      */
-    public function connexion(AuthenticationUtils $utils)
+    public function connexion(AuthenticationUtils $utils): Response
     {
         $current_user = $this->security->getUser();
 
@@ -38,11 +44,14 @@ class ApiController extends AbstractController
 
     /**
      * @Route("/disconnect", name="security_disconnect")
+     * @return void
      */
-    public function disconnect() {}
+    public function disconnect(): void 
+    {}
 
     /**
      * @Route("/gotoapi", name="gotoapi")
+     * @return RedirectResponse
      */
     public function goToApi()
     {

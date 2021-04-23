@@ -1,36 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 .change-font {
-  font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', sans-serif;
 }
 
 input {
-  font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+}
+
+::placeholder {
+    font-family: 'Quicksand', sans-serif;
+    color: rgb(116, 116, 116);
+    opacity: 1;
 }
 
 .btn {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
 }
 
 .background-image {
-  background-position: center;
-  background-size: cover;
-  display: block;
-  position: fixed;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
+    background-position: center;
+    background-size: cover;
+    display: block;
+    position: fixed;
+    z-index: -1;
+    top: 0; 
+    left: 0;
+    width:100%;
+    height: 100%;
 }
 
 .main-logo {
-  width: 90px;
+    width:90px;
 }
 
 .regular-spacer {
-  height: 10px;
+    height: 10px;
 }
 
 .medium-spacer {
-  height: 50px;
+    height: 50px;
 }
