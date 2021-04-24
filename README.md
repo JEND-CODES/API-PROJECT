@@ -4,7 +4,6 @@
 
 [![SymfonyInsight](https://insight.symfony.com/projects/e987388d-6340-4e8c-aea9-b082f74aa4e9/big.svg)](https://insight.symfony.com/projects/e987388d-6340-4e8c-aea9-b082f74aa4e9)
 
-
 ## DÉMO => http://mobile.planetcode.fr
 
 ## HOMEPAGE
@@ -25,7 +24,7 @@
 
 ## INSTRUCTIONS D'INSTALLATION
 ``` bash
-* CLONEZ LE PROJET : git clone
+* CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/API-PROJECT
 
 * INSTALLEZ LES DÉPENDANCES AVEC COMPOSER : composer install
 
@@ -41,3 +40,11 @@
 
 * EN PRODUCTION VEILLEZ À CONFIGURER LE HTACCESS : RewriteCond %{HTTP:Authorization} ^(.*)
 ```
+
+## CAPTURES
+
+![API-PROJECT]()
+
+![API-PROJECT]()
+
+![API-PROJECT]()

@@ -4,53 +4,41 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Annotation\ApiProperty;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *  attributes={
+ *      "order"={"id":"DESC"},
  *      "security"="is_granted('ROLE_ADMIN')",
  *      "security_message"="Resources and operations reserved for administrators"
  * },
  *  itemOperations={
  *      "get"={
  *          "normalizationContext"={
- *              "groups"={"client_details_read"}
+ *              "groups"={"client_details:read"}
  *          }, 
  *          "openapi_context" = {
- * 				"summary" = "Single client informations",
- *              "description" = "Informations retrieval for a single Bilemo client",
- *              "tags" = {"One client"}
+ * 				"summary" = "Single client informations with the list of linked consumers",
+ *              "description" = "Query by client ID to display client informations",
+ *              "tags" = {"SINGLE CLIENT"}
  *           }
- *      },
- *      "put",
- *      "patch",
- *      "delete"
+ *      }
  *  }, 
  *  collectionOperations={
  *      "get"={
  *          "normalizationContext"={
- *              "groups"={"client_read"}
+ *              "groups"={"clients:read"}
  *          }, 
  *          "openapi_context" = {
  * 				"summary" = "Query to the list of clients",
- *              "description" = "This collection of resources displays the list of Bilemo clients"
+ *              "description" = "This collection of resources displays the list of Bilemo clients",
+ *              "tags" = {"ALL CLIENTS"}
  *           }
- *      },
- *      "post"={
- *          "openapi_context" = {
- * 				"summary" = "Creation of a new client",
- *              "description" = "The creation of a new client must be associated with a consumer account"
- *           }
- *      },
+ *      }
  *  }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
@@ -63,6 +51,8 @@ class Client
      * @ORM\GeneratedValue()
      * 
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"client_details:read"})
      */
     private $id;
 
@@ -71,7 +61,7 @@ class Client
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"client_details_read", "client_read", "client_info"})
+     * @Groups({"client_details:read", "clients:read", "consumer_details:read"})
      */
     private $name;
 
@@ -80,7 +70,7 @@ class Client
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"client_details_read", "client_read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $address;
 
@@ -89,7 +79,7 @@ class Client
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"client_details_read", "client_read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $city;
 
@@ -98,7 +88,7 @@ class Client
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"client_details_read", "client_read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $phoneNbr;
 
@@ -107,14 +97,12 @@ class Client
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"client_details_read", "client_read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Consumer", mappedBy="client", orphanRemoval=true)
-     * 
-     * @ApiSubresource()
      */
     private $consumers;
 

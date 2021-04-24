@@ -1,5 +1,4 @@
 <?php
-// https://api-platform.com/docs/core/events/
 
 namespace App\Events;
 
@@ -41,22 +40,6 @@ final class ConsumerMailSubscriber implements EventSubscriberInterface
             ->setBody("Votre compte Api Bilemo vient d'être ajouté. Vous pouvez vous connecter avec le pseudo suivant : {$consumer->getUsername()} ; et le mot de passe que vous nous aviez communiqué. Ce compte utilisateur est rattaché au compte client {$consumer->getClient()->getName()} et est référencé avec l'identifiant n°{$consumer->getId()}. Nous vous remercions pour votre confiance !");
 
         $this->mailer->send($message);
-
-        /* try {
-            $this->mailer->send($message);
-            // $success = "Success ! Message send !";
-            // dd($success);
-
-            $message = "Votre compte Api Bilemo vient d'être ajouté. Vous pouvez vous connecter avec le pseudo suivant : {$consumer->getUsername()} ; et le mot de passe que vous nous aviez communiqué. Ce compte utilisateur est rattaché au compte client {$consumer->getClient()->getName()} et est référencé avec l'identifiant n°{$consumer->getId()}. Nous vous remercions pour votre confiance !";
-            dd($message);
-
-        }
-        catch (\Exception $exception) {
-            $errors = $exception->getMessage();
-            // dd($errors);
-            // $failed = "Error sending message !";
-            // dd($failed);
-        } */
 
     }
 

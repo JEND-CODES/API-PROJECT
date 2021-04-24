@@ -4,11 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-// use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
@@ -20,37 +18,44 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  paginationItemsPerPage=2,
  *  itemOperations={
  *      "get"={
- *         "normalization_context"={
- *         "groups"={"read", "client_info"}},
- *         "openapi_context" = {
- * 				"summary" = "Consult the details of a consumer linked to a client",
- *              "description" = "Query by identifier to consult consumer's informations"
- *          }
- *      },
- *      "put",
- *      "patch",
- *      "delete"
- *  },
- *  collectionOperations={
- *      "get",
- *      "post"={
- *         "openapi_context" = {
- * 				"summary" = "Creates a new consumer linked to a client",
- *              "description" = "The new consumer will receive an email"
- *          }
- *      },
- *      "api_clients_consumers_get_subresource"={
  *          "normalization_context"={
- *               "groups"={"clients_consumers"}
+ *              "groups"={"consumer_details:read"}
  *          },
  *          "openapi_context" = {
- * 				"summary" = "Consult the list of consumers linked to a client",
- *              "description" = "Query by client ID to display the list of consumers"
+ * 				"summary" = "Consult the details of a consumer linked to a client",
+ *              "description" = "Query by identifier to consult consumer's informations", 
+ *              "tags" = {"SINGLE CONSUMER"}
+ *          }
+ *      },
+ *      "delete"={
+ *          "openapi_context" = {
+ * 				"summary" = "Delete one consumer",
+ *              "description" = "Delete by ID one consumer", 
+ *              "tags" = {"REMOVE CONSUMER"}
  *          }
  *      }
  *  },
- *  normalizationContext={
- *      "groups"={"read"}
+ *  collectionOperations={
+ *      "get"={
+ *          "normalization_context"={
+ *              "groups"={"consumers:read"}
+ *          },
+ *          "openapi_context" = {
+ * 				"summary" = "Query to the list of consumers",
+ *              "description" = "Displays the list of every consumers",
+ *              "tags" = {"ALL CONSUMERS"}
+ *          }
+ *      },
+ *      "post"={
+ *          "denormalization_context"={
+ *              "groups"={"consumers:write"}
+ *          },
+ *          "openapi_context" = {
+ * 				"summary" = "Creates a new consumer linked to a client",
+ *              "description" = "The new consumer will receive an email",
+ *              "tags" = {"ADD CONSUMER"}
+ *          }
+ *      }
  *  }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
@@ -65,9 +70,7 @@ class Consumer implements UserInterface
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"read", "clients_consumers"})
-     * 
-     * @ApiSubresource()
+     * @Groups({"consumer_details:read"})
      */
     private $id;
 
@@ -76,7 +79,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $username;
 
@@ -87,7 +90,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\Email
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read", "consumers:write"})
      */
     private $email;
 
@@ -96,7 +99,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read", "consumers:write"})
      */
     private $address;
 
@@ -105,7 +108,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read", "consumers:write"})
      */
     private $city;
 
@@ -114,7 +117,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read", "consumers:write"})
      */
     private $phoneNbr;
 
@@ -123,7 +126,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumers:write"})
      */
     private $password;
 
@@ -132,14 +135,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=80)
      * 
-     * @Groups({"read", "clients_consumers"})
+     * @Groups({"consumer_details:read", "consumers:write"})
      */
     private $role;
 
@@ -148,9 +151,14 @@ class Consumer implements UserInterface
      * 
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"read"})
+     * @Groups({"consumer_details:read", "consumers:write"})
      */
     private $client;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

@@ -28,8 +28,8 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create('FR-fr');
 
         $this->clientRepository->fixtureIndex();
-        $this->productRepository->fixtureIndex();
-        $this->consumerRepository->fixtureIndex();
+		$this->productRepository->fixtureIndex();
+		$this->consumerRepository->fixtureIndex();
 
         // TÉLÉPHONES PROPOSÉS PAR BILEMO
         $product = new Product();
@@ -57,7 +57,6 @@ class AppFixtures extends Fixture
                 ->setTrademark('Sony')
                 ->setSummary('Caractéristiques : '.$faker->paragraph(3))
                 ->setPrice(369.00)
-                // ->setColor('Gold')
                 ->setColor($faker->colorName())
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;

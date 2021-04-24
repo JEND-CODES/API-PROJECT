@@ -30,10 +30,6 @@ class ApiController extends AbstractController
     {
         $current_user = $this->security->getUser();
 
-        // if(!is_null($current_user)) {
-        //     return $this->redirectToRoute('gotoapi');
-        // }
-
         $error = $utils->getLastAuthenticationError();
 
         return $this->render('security/connexion.html.twig', [
