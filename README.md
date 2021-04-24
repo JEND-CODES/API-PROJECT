@@ -43,8 +43,8 @@
 
 ## CAPTURES
 
-![API-PROJECT]()
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_0.JPG)
 
-![API-PROJECT]()
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_1.JPG)
 
-![API-PROJECT]()
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_2.JPG)
