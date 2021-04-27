@@ -56,3 +56,11 @@
 
 * EN PRODUCTION VEILLEZ À CONFIGURER LE HTACCESS : RewriteCond %{HTTP:Authorization} ^(.*)
 ```
+
+## CAPTURES
+
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_0.JPG)
+
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_1.JPG)
+
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_2.JPG)
