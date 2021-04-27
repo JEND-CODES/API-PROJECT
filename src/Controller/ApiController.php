@@ -6,8 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
+use App\Repository\ClientRepository;
+use App\Repository\ConsumerRepository;
+use App\Repository\ProductRepository;
 
 class ApiController extends AbstractController
 {
@@ -22,7 +27,7 @@ class ApiController extends AbstractController
     }
     
     /**
-     * @Route("/", name="security_connexion")
+     * @Route("/", name="security_connexion", methods={"GET","POST"})
      * @param AuthenticationUtils $utils
      * @return Response
      */
@@ -39,21 +44,14 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/disconnect", name="security_disconnect")
-     * @return void
-     */
-    public function disconnect(): void 
-    {}
-
-    /**
-     * @Route("/gotoapi", name="gotoapi")
+     * @Route("/gotoapi", name="gotoapi", methods={"GET"})
      * @return RedirectResponse
      */
-    public function goToApi()
+    public function goToApi(): RedirectResponse
     {
         // Une redirection 301 est une substitution permanente de l’adresse initialement demandée par l’adresse obtenue
         return $this->redirect('/api', 301);
         
     }
-
+  
 }

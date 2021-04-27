@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "groups"={"client_details:read"}
  *          }, 
  *          "openapi_context" = {
- * 				"summary" = "Single client informations with the list of linked consumers",
+ *              "summary" = "Single client informations with the list of linked consumers",
  *              "description" = "Query by client ID to display client informations",
  *              "tags" = {"SINGLE CLIENT"}
  *           }
@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "groups"={"clients:read"}
  *          }, 
  *          "openapi_context" = {
- * 				"summary" = "Query to the list of clients",
+ *              "summary" = "Query to the list of clients",
  *              "description" = "This collection of resources displays the list of Bilemo clients",
  *              "tags" = {"ALL CLIENTS"}
  *           }
@@ -52,7 +52,7 @@ class Client
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"client_details:read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $id;
 

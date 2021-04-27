@@ -36,7 +36,8 @@ final class ConsumerMailSubscriber implements EventSubscriberInterface
 
         $message = (new \Swift_Message('NOUVEAU COMPTE API BILEMO'))
             ->setFrom('noreply@bilemo.com')
-            ->setTo($consumer->getEmail())
+            // ->setTo($consumer->getEmail())
+            ->setTo('jeaneudes.nd@gmail.com')
             ->setBody("Votre compte Api Bilemo vient d'être ajouté. Vous pouvez vous connecter avec le pseudo suivant : {$consumer->getUsername()} ; et le mot de passe que vous nous aviez communiqué. Ce compte utilisateur est rattaché au compte client {$consumer->getClient()->getName()} et est référencé avec l'identifiant n°{$consumer->getId()}. Nous vous remercions pour votre confiance !");
 
         $this->mailer->send($message);

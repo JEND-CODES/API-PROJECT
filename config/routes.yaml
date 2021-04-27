@@ -1,3 +1,6 @@
+security_disconnect:
+    path: /disconnect
+    
 authentication_token:
     path: /api/login
     methods: ['POST']

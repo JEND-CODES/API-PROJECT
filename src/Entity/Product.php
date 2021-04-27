@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\NewProductMailer;
 
 /**
  * @ApiResource(
@@ -18,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "groups"={"product_details:read"}
  *          },
  *          "openapi_context" = {
- * 				"summary" = "View the details of a product",
+ *              "summary" = "View the details of a product",
  *              "description" = "Query to display a Bilemo product",
  *              "tags" = {"ONE PRODUCT"}
  *           }
@@ -27,7 +28,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "security"="is_granted('ROLE_ADMIN')",
  *          "security_message"="Operation reserved for administrators",
  *          "openapi_context" = {
- * 		        "summary" = "Delete one product",
+ *              "summary" = "Delete one product",
  *              "description" = "Delete by ID one product",
  *              "tags" = {"REMOVE PRODUCT"}
  *          }
@@ -39,19 +40,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "groups"={"products:read"}
  *          },
  *          "openapi_context" = {
- * 				"summary" = "Consult the products list",
+ *              "summary" = "Consult the products list",
  *              "description" = "Query to display all Bilemo products",
  *              "tags" = {"ALL PRODUCTS"}
  *           }
  *      },
  *      "post"={
+ *          "controller"=NewProductMailer::class,
  *          "security"="is_granted('ROLE_ADMIN')",
  *          "security_message"="Operation reserved for administrators",
  *          "denormalization_context"={
  *              "groups"={"products:write"}
  *          },
  *          "openapi_context" = {
- * 		        "summary" = "Creates a new product",
+ *              "summary" = "Creates a new product",
  *              "description" = "Creates a new Bilemo product",
  *              "tags" = {"ADD PRODUCT"}
  *          }
@@ -69,7 +71,7 @@ class Product
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"product_details:read"})
+     * @Groups({"product_details:read", "products:read"})
      */
     private $id;
 

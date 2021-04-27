@@ -22,14 +22,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *              "groups"={"consumer_details:read"}
  *          },
  *          "openapi_context" = {
- * 				"summary" = "Consult the details of a consumer linked to a client",
+ *              "summary" = "Consult the details of a consumer linked to a client",
  *              "description" = "Query by identifier to consult consumer's informations", 
  *              "tags" = {"SINGLE CONSUMER"}
  *          }
  *      },
  *      "delete"={
  *          "openapi_context" = {
- * 				"summary" = "Delete one consumer",
+ *              "summary" = "Delete one consumer",
  *              "description" = "Delete by ID one consumer", 
  *              "tags" = {"REMOVE CONSUMER"}
  *          }
@@ -41,7 +41,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *              "groups"={"consumers:read"}
  *          },
  *          "openapi_context" = {
- * 				"summary" = "Query to the list of consumers",
+ *              "summary" = "Query to the list of consumers",
  *              "description" = "Displays the list of every consumers",
  *              "tags" = {"ALL CONSUMERS"}
  *          }
@@ -51,7 +51,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *              "groups"={"consumers:write"}
  *          },
  *          "openapi_context" = {
- * 				"summary" = "Creates a new consumer linked to a client",
+ *              "summary" = "Creates a new consumer linked to a client",
  *              "description" = "The new consumer will receive an email",
  *              "tags" = {"ADD CONSUMER"}
  *          }
@@ -70,7 +70,7 @@ class Consumer implements UserInterface
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"consumer_details:read"})
+     * @Groups({"consumer_details:read", "consumers:read"})
      */
     private $id;
 

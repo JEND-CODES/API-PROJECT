@@ -8,17 +8,19 @@
 
 ## Avancées
 
-• Entités annotées (attributs, groupes de normalisation, opérations) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
+• Entités annotées (attributs, groupes de normalisation, opérations, documentation..) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
 
-• Authentification JWT configurée dans le fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
+• Authentification JWT et routes sécurisées : fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
 
-• Configuration Api platform et mise en cache : [api_platform.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/api_platform.yaml)
+• Configuration Api platform et paramètres de mise en cache : [api_platform.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/api_platform.yaml)
 
 • Custom Operation : envoi d'un mail lors de la création d'un nouveau produit [NewProductMailer.php](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Controller)
 
 • Endpoint JWT Token de l'API configuré dans le fichier : [JwtDecorator.php](https://github.com/JEND-CODES/API-PROJECT/blob/main/src/OpenApi/JwtDecorator.php)
 
-• EventSusbcriber : encodage d'un nouveau mot de passe, sécurisation lors de la suppression d'un utilisateur et envoi d'un mail lors de la création d'un nouvel utilisateur [dossier Events](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Events)
+• Event Susbcribers : encodage d'un nouveau mot de passe, sécurisation lors de la suppression d'un utilisateur et envoi d'un mail lors de la création d'un nouvel utilisateur [dossier Events](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Events)
+
+• Exemples de documentations associées à l'API : [Swagger UI](http://mobile.planetcode.fr/swagger/index.html) & [ReDoc](http://mobile.planetcode.fr/api/docs?ui=re_doc)
 
 ## HOMEPAGE
 
@@ -38,7 +40,7 @@
 
 ## INSTRUCTIONS D'INSTALLATION
 ``` bash
-* CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/API-PROJECT
+* CLONEZ LE PROJET : git clone
 
 * INSTALLEZ LES DÉPENDANCES AVEC COMPOSER : composer install
 
@@ -54,11 +56,3 @@
 
 * EN PRODUCTION VEILLEZ À CONFIGURER LE HTACCESS : RewriteCond %{HTTP:Authorization} ^(.*)
 ```
-
-## CAPTURES
-
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_0.JPG)
-
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_1.JPG)
-
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/captures/capture_api_2.JPG)

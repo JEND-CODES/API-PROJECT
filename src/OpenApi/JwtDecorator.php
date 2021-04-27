@@ -57,7 +57,10 @@ final class JwtDecorator implements OpenApiFactoryInterface
                         ],
                     ],
                 ]
-            ]
+            ],
+            '401' => [
+                'description' => 'Unauthorized. Bad credentials.',
+            ],
         ];
 
         $content = new \ArrayObject([
