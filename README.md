@@ -6,6 +6,20 @@
 
 ## DÉMO => http://mobile.planetcode.fr
 
+## Avancées
+
+• Entités annotées (attributs, groupes de normalisation, opérations) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
+
+• Authentification JWT configurée dans le fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
+
+• Configuration Api platform et mise en cache : [api_platform.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/api_platform.yaml)
+
+• Custom Operation : envoi d'un mail lors de la création d'un nouveau produit [NewProductMailer.php](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Controller)
+
+• Endpoint JWT Token de l'API configuré dans le fichier : [JwtDecorator.php](https://github.com/JEND-CODES/API-PROJECT/blob/main/src/OpenApi/JwtDecorator.php)
+
+• EventSusbcriber : encodage d'un nouveau mot de passe, sécurisation lors de la suppression d'un utilisateur et envoi d'un mail lors de la création d'un nouvel utilisateur [dossier Events](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Events)
+
 ## HOMEPAGE
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
