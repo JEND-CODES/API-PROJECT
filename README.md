@@ -8,7 +8,7 @@
 
 ## Avancées
 
-• Entités annotées (attributs, groupes de normalisation, opérations, documentation..) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
+• Entités annotées (attributs, groupes de normalisation, opérations, documentation, filtres..) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
 
 • Authentification JWT et routes sécurisées : fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
 
