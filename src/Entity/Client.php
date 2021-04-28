@@ -8,6 +8,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
@@ -35,12 +37,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          }, 
  *          "openapi_context" = {
  *              "summary" = "Query to the list of clients",
- *              "description" = "This collection of resources displays the list of Bilemo clients",
- *              "tags" = {"ALL CLIENTS"}
+ *              "description" = "This collection of resources displays the list of Bilemo clients. You can also search with a filter by name.",
+ *              "tags" = {"SEARCH CLIENTS"}
  *           }
  *      }
  *  }
- * )
+ * ),
+ * @ApiFilter(
+ *  SearchFilter::class, 
+ *  properties={
+ *      "name":"partial"
+ *  }
+ * ),
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
 class Client

@@ -7,6 +7,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\NewProductMailer;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
@@ -41,8 +43,8 @@ use App\Controller\NewProductMailer;
  *          },
  *          "openapi_context" = {
  *              "summary" = "Consult the products list",
- *              "description" = "Query to display all Bilemo products",
- *              "tags" = {"ALL PRODUCTS"}
+ *              "description" = "Query to display all Bilemo products or to search with filters",
+ *              "tags" = {"SEARCH PRODUCTS"}
  *           }
  *      },
  *      "post"={
@@ -59,7 +61,16 @@ use App\Controller\NewProductMailer;
  *          }
  *      }
  *  }
- * )
+ * ),
+ * @ApiFilter(
+ *  SearchFilter::class, 
+ *  properties={
+ *      "phone":"partial",
+ *      "trademark":"partial",
+ *      "summary":"partial",
+ *      "color":"partial"
+ *  }
+ * ),
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
 class Product
@@ -98,7 +109,7 @@ class Product
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"product_details:read", "products:write"})
+     * @Groups({"product_details:read", "products:read", "products:write"})
      */
     private $summary;
 
@@ -107,7 +118,7 @@ class Product
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"product_details:read", "products:write"})
+     * @Groups({"product_details:read", "products:read", "products:write"})
      */
     private $color;
 
@@ -116,7 +127,7 @@ class Product
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"product_details:read", "products:write"})
+     * @Groups({"product_details:read", "products:read", "products:write"})
      */
     private $price;
 
@@ -125,7 +136,7 @@ class Product
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"product_details:read"})
+     * @Groups({"product_details:read", "products:read"})
      */
     private $createdAt;
 

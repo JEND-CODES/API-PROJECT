@@ -7,6 +7,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
@@ -42,8 +44,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *          },
  *          "openapi_context" = {
  *              "summary" = "Query to the list of consumers",
- *              "description" = "Displays the list of every consumers",
- *              "tags" = {"ALL CONSUMERS"}
+ *              "description" = "Displays the list of every consumers. You can also search with a filter by username.",
+ *              "tags" = {"SEARCH CONSUMERS"}
  *          }
  *      },
  *      "post"={
@@ -57,7 +59,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *          }
  *      }
  *  }
- * )
+ * ),
+ * @ApiFilter(
+ *  SearchFilter::class, 
+ *  properties={
+ *      "username":"partial"
+ *  }
+ * ),
  * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
  */
 class Consumer implements UserInterface
@@ -90,7 +98,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\Email
      * 
-     * @Groups({"consumer_details:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $email;
 
@@ -99,7 +107,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $address;
 
@@ -108,7 +116,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $city;
 
@@ -117,7 +125,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $phoneNbr;
 
@@ -135,14 +143,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read"})
+     * @Groups({"consumer_details:read", "consumers:read",})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=80)
      * 
-     * @Groups({"consumer_details:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $role;
 
@@ -151,7 +159,7 @@ class Consumer implements UserInterface
      * 
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"consumer_details:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
      */
     private $client;
 
