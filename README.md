@@ -10,11 +10,13 @@
 
 • Entités annotées (attributs, groupes de normalisation, opérations, documentation..) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
 
-• Authentification JWT et routes sécurisées : fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
+• Authentification JWT, routes sécurisées et rôles hiérarchiques (ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN) : fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
 
 • Configuration Api platform et paramètres de mise en cache : [api_platform.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/api_platform.yaml)
 
 • Custom Operation : envoi d'un mail lors de la création d'un nouveau produit [NewProductMailer.php](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Controller)
+
+• Custom Operation : assignations automatiques du ROLE_USER et de la référence Client lors de la création d'un utilisateur par un ROLE_ADMIN [NewConsumerRole.php](https://github.com/JEND-CODES/API-PROJECT/blob/main/src/Controller/NewConsumerRole.php)
 
 • Endpoint JWT Token de l'API configuré dans le fichier : [JwtDecorator.php](https://github.com/JEND-CODES/API-PROJECT/blob/main/src/OpenApi/JwtDecorator.php)
 
@@ -42,7 +44,7 @@
 
 ## INSTRUCTIONS D'INSTALLATION
 ``` bash
-* CLONEZ LE PROJET : git clone
+* CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/API-PROJECT
 
 * INSTALLEZ LES DÉPENDANCES AVEC COMPOSER : composer install
 
