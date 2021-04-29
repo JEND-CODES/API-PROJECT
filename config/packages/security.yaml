@@ -54,9 +54,9 @@ security:
     # Users with the ROLE_ADMIN role will also have the ROLE_USER role. And users with ROLE_SUPER_ADMIN, will automatically have ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH and ROLE_USER (inherited from ROLE_ADMIN)
     # https://symfony.com/doc/current/security.html#hierarchical-roles
 
-    # role_hierarchy:
-        # ROLE_ADMIN: ROLE_USER
-        # ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

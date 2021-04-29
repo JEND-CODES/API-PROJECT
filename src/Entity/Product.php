@@ -27,11 +27,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *           }
  *      },
  *      "delete"={
- *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Operation reserved for administrators",
+ *          "security"="is_granted('ROLE_SUPER_ADMIN')",
+ *          "security_message"="Operation reserved for managers",
  *          "openapi_context" = {
  *              "summary" = "Delete one product",
- *              "description" = "Delete by ID one product",
+ *              "description" = "Delete by ID one product. Operation reserved for managers.",
  *              "tags" = {"REMOVE PRODUCT"}
  *          }
  *      }
@@ -49,14 +49,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      },
  *      "post"={
  *          "controller"=NewProductMailer::class,
- *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Operation reserved for administrators",
+ *          "security"="is_granted('ROLE_SUPER_ADMIN')",
+ *          "security_message"="Operation reserved for managers",
  *          "denormalization_context"={
  *              "groups"={"products:write"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Creates a new product",
- *              "description" = "Creates a new Bilemo product",
+ *              "description" = "Creates a new Bilemo product. Operation reserved for managers.",
  *              "tags" = {"ADD PRODUCT"}
  *          }
  *      }
@@ -91,6 +91,13 @@ class Product
      * 
      * @Assert\NotBlank
      * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="80",
+     *  minMessage="Phone name : minimum 3 characters",
+     *  maxMessage="Phone name : maximum 80 characters"
+     * )
+     * 
      * @Groups({"product_details:read", "products:read", "products:write"})
      */
     private $phone;
@@ -99,6 +106,13 @@ class Product
      * @ORM\Column(type="string", length=80)
      * 
      * @Assert\NotBlank
+     * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="80",
+     *  minMessage="Brand name : minimum 3 characters",
+     *  maxMessage="Brand name : maximum 80 characters"
+     * )
      * 
      * @Groups({"product_details:read", "products:read", "products:write"})
      */
@@ -109,6 +123,13 @@ class Product
      * 
      * @Assert\NotBlank
      * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="4000",
+     *  minMessage="Phone description : minimum 3 characters",
+     *  maxMessage="Phone description : maximum 4000 characters"
+     * )
+     * 
      * @Groups({"product_details:read", "products:read", "products:write"})
      */
     private $summary;
@@ -118,6 +139,13 @@ class Product
      * 
      * @Assert\NotBlank
      * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="40",
+     *  minMessage="Phone color : minimum 3 characters",
+     *  maxMessage="Phone color : maximum 40 characters"
+     * )
+     * 
      * @Groups({"product_details:read", "products:read", "products:write"})
      */
     private $color;
@@ -126,6 +154,13 @@ class Product
      * @ORM\Column(type="float")
      * 
      * @Assert\NotBlank
+     * 
+     * @Assert\Positive
+     * 
+     * @Assert\Type(
+     *  type="float",
+     *  message="Phone price must be a numeric value"
+     * )
      * 
      * @Groups({"product_details:read", "products:read", "products:write"})
      */

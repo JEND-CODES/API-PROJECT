@@ -14,53 +14,47 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-    
-    public function __construct(ClientRepository $clientRepository, ProductRepository $productRepository, ConsumerRepository $consumerRepository, UserPasswordEncoderInterface $encoder)
-	{
-		$this->clientRepository = $clientRepository;
-		$this->productRepository = $productRepository;
-		$this->consumerRepository = $consumerRepository;
-		$this->encoder = $encoder;
-	}
+   
+    public function __construct(
+        ClientRepository $clientRepository, 
+        ProductRepository $productRepository, 
+        ConsumerRepository $consumerRepository, 
+        UserPasswordEncoderInterface $encoder
+        )
+    {
+        $this->clientRepository = $clientRepository;
+        $this->productRepository = $productRepository;
+        $this->consumerRepository = $consumerRepository;
+        $this->encoder = $encoder;
+    }
 
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('FR-fr');
 
         $this->clientRepository->fixtureIndex();
-		$this->productRepository->fixtureIndex();
-		$this->consumerRepository->fixtureIndex();
+        $this->productRepository->fixtureIndex();
+        $this->consumerRepository->fixtureIndex();
 
         // TÉLÉPHONES PROPOSÉS PAR BILEMO
-        $product = new Product();
-        $product->setPhone('Galaxy')
-                ->setTrademark('Samsung')
-                ->setSummary('Caractéristiques : '.$faker->paragraph(3))
-                ->setPrice(799.99)
-                ->setColor('White')
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ;
-        $manager->persist($product);
+        $phones = ['Galaxy', 'iPhone', 'Xperia', 'MX154', 'P40pro', 'FindX3', 'BZ789', '3080G'];
+        $brands = ['Samsung', 'Apple', 'Sony', 'Xiaomi', 'Huawei', 'Oppo', 'Nokia', 'Alcatel'];
+        $colors = ['Silver', 'White', 'Black', 'Gold', 'Orange', 'Grey', 'Black', 'White'];
 
-        $product = new Product();
-        $product->setPhone('iPhone')
-                ->setTrademark('Apple')
+        foreach ($phones as $key => $value)
+        {
+           $product = new Product();
+           $product->setPhone($value)
+                ->setTrademark($brands[$key])
                 ->setSummary('Caractéristiques : '.$faker->paragraph(3))
-                ->setPrice(751.55)
-                ->setColor('Black')
+                ->setPrice($faker->numberBetween(400, 900))
+                ->setColor($colors[$key])
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
-        $manager->persist($product);
+                
+           $manager->persist($product);
 
-        $product = new Product();
-        $product->setPhone('Xperia')
-                ->setTrademark('Sony')
-                ->setSummary('Caractéristiques : '.$faker->paragraph(3))
-                ->setPrice(369.00)
-                ->setColor($faker->colorName())
-                ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ;
-        $manager->persist($product);
+        }
 
         // COMPTE MANAGER BILEMO
         $client = new Client();
@@ -108,17 +102,17 @@ class AppFixtures extends Fixture
         $manager->persist($client);
 
         // UTILISATEURS = CONSUMERS
-        // COMPTE UTILISATEUR ADMIN BILEMO
+        // COMPTE UTILISATEUR MANAGER BILEMO
         $consumer = new Consumer();
         $client = $this->getReference('bilemo-ref');
-        $consumer->setUsername('admin')
-                ->setEmail('admin@test.com')
+        $consumer->setUsername('manager')
+                ->setEmail('manager.bilemo@test.com')
                 ->setAddress($faker->secondaryAddress())
                 ->setCity('Paris')
                 ->setPhoneNbr('06491076XX')
                 ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
-                ->setRole('ROLE_ADMIN')
+                ->setRole('ROLE_SUPER_ADMIN')
                 ->setClient($client)
                 ;
         $manager->persist($consumer);
@@ -126,8 +120,8 @@ class AppFixtures extends Fixture
         // UTILISATEUR ADMIN FREE
         $consumer = new Consumer();
         $client = $this->getReference('free-ref');
-        $consumer->setUsername('freeadmin')
-                ->setEmail('freeadmin@test.com')
+        $consumer->setUsername('adminFree')
+                ->setEmail('admin.free@test.com')
                 ->setAddress($faker->secondaryAddress())
                 ->setCity('Paris')
                 ->setPhoneNbr('06205687XX')
@@ -141,8 +135,8 @@ class AppFixtures extends Fixture
         // UTILISATEUR ADMIN ORANGE
         $consumer = new Consumer();
         $client = $this->getReference('orange-ref');
-        $consumer->setUsername('orangeadmin')
-                ->setEmail('orangeadmin@test.com')
+        $consumer->setUsername('adminOrange')
+                ->setEmail('admin.orange@test.com')
                 ->setAddress($faker->secondaryAddress())
                 ->setCity('Marseille')
                 ->setPhoneNbr('06205687XX')
@@ -156,8 +150,8 @@ class AppFixtures extends Fixture
         // UTILISATEUR ADMIN BOUYGUES
         $consumer = new Consumer();
         $client = $this->getReference('bouygues-ref');
-        $consumer->setUsername('bouyghesadmin')
-                ->setEmail('bouyghesadmin@test.com')
+        $consumer->setUsername('adminBouygues')
+                ->setEmail('admin.bouygues@test.com')
                 ->setAddress($faker->secondaryAddress())
                 ->setCity('Bordeaux')
                 ->setPhoneNbr('06468679XX')

@@ -28,8 +28,7 @@ class NewProductMailer
 
         $message = (new \Swift_Message("NOUVEAU TÉLÉPHONE AJOUTÉ AU RÉPERTOIRE BILEMO"))
                 ->setFrom('noreply@bilemo.com')
-                // ->setTo('admin@bilemo.com')
-                ->setTo('jeaneudes.nd@gmail.com')
+                ->setTo('manager.bilemo@test.com')
                 ->setBody("Le smarthpone {$data->getPhone()} de {$data->getTrademark()} est désormais disponible sur l'Api Bilemo. Il vient d'être ajouté par l'utilisateur suivant : {$current_consumer} .");
 
         $this->mailer->send($message);

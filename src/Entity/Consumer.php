@@ -9,52 +9,74 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Controller\NewConsumerRole;
 
 /**
  * @ApiResource(
  *  attributes={
- *      "order"={"id":"DESC"},
- *      "security"="is_granted('ROLE_ADMIN')",
- *      "security_message"="Resources and operations reserved for administrators"
+ *      "order"={"id":"DESC"}
  *  },
  *  paginationItemsPerPage=2,
  *  itemOperations={
  *      "get"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Resource reserved for administrators",
  *          "normalization_context"={
  *              "groups"={"consumer_details:read"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Consult the details of a consumer linked to a client",
- *              "description" = "Query by identifier to consult consumer's informations", 
+ *              "description" = "Query by identifier to consult consumer's informations. Resource reserved for administrators.", 
  *              "tags" = {"SINGLE CONSUMER"}
  *          }
  *      },
  *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Operation reserved for administrators",
  *          "openapi_context" = {
  *              "summary" = "Delete one consumer",
- *              "description" = "Delete by ID one consumer", 
+ *              "description" = "Delete by ID one consumer. Operation reserved for administrators. Administrators can not delete administrators accounts.", 
  *              "tags" = {"REMOVE CONSUMER"}
  *          }
  *      }
  *  },
  *  collectionOperations={
  *      "get"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Collection reserved for administrators",
  *          "normalization_context"={
  *              "groups"={"consumers:read"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Query to the list of consumers",
- *              "description" = "Displays the list of every consumers. You can also search with a filter by username.",
+ *              "description" = "Displays the list of every consumers. You can also search with a filter by username. Collection reserved for administrators.",
  *              "tags" = {"SEARCH CONSUMERS"}
  *          }
  *      },
  *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN')",
+ *          "security_message"="Operation reserved for administrators",
+ *          "controller"=NewConsumerRole::class,
  *          "denormalization_context"={
  *              "groups"={"consumers:write"}
  *          },
  *          "openapi_context" = {
+ *              "summary" = "Creates a new consumer with your client reference",
+ *              "description" = "Operation reserved for administrators. Defines automatically the new consumer with your client reference. Administrators can not create administrators accounts. The new consumer will receive an email.",
+ *              "tags" = {"ADD CONSUMER"}
+ *          }
+ *      }, 
+ *      "manager_post_consumer"={
+ *          "security"="is_granted('ROLE_SUPER_ADMIN')",
+ *          "security_message"="Operation reserved for managers",
+ *          "method"="POST",
+ *          "path"="/new-consumers",
+ *          "denormalization_context"={
+ *              "groups"={"manager_consumers:write"}
+ *          },
+ *          "openapi_context" = {
  *              "summary" = "Creates a new consumer linked to a client",
- *              "description" = "The new consumer will receive an email",
+ *              "description" = "Operation reserved for managers. Defines role and client reference. The new consumer will receive an email.",
  *              "tags" = {"ADD CONSUMER"}
  *          }
  *      }
@@ -87,7 +109,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Assert\Length(
+     *  min="3",
+     *  max="100",
+     *  minMessage="Consumer username : minimum 3 characters",
+     *  maxMessage="Consumer username : maximum 100 characters"
+     * )
+     * 
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $username;
 
@@ -98,7 +127,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\Email
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $email;
 
@@ -107,7 +136,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Assert\Length(
+     *  min="3",
+     *  max="80",
+     *  minMessage="Consumer address : minimum 3 characters",
+     *  maxMessage="Consumer address : maximum 80 characters"
+     * )
+     * 
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $address;
 
@@ -116,7 +152,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Assert\Length(
+     *  min="3",
+     *  max="60",
+     *  minMessage="Consumer city : minimum 3 characters",
+     *  maxMessage="Consumer city : maximum 60 characters"
+     * )
+     * 
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $city;
 
@@ -125,7 +168,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Assert\Length(
+     *  min="3",
+     *  max="25",
+     *  minMessage="Consumer phone number : minimum 3 characters",
+     *  maxMessage="Consumer phone number : maximum 25 characters"
+     * )
+     * 
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $phoneNbr;
 
@@ -134,7 +184,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumers:write"})
+     * @Assert\Length(
+     *  min="5",
+     *  max="100",
+     *  minMessage="Consumer password : minimum 3 characters",
+     *  maxMessage="Consumer password : maximum 100 characters"
+     * )
+     * 
+     * @Groups({"consumers:write", "manager_consumers:write"})
      */
     private $password;
 
@@ -143,14 +200,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumer_details:read", "consumers:read",})
+     * @Groups({"consumer_details:read", "consumers:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=80)
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "manager_consumers:write"})
      */
     private $role;
 
@@ -159,7 +216,7 @@ class Consumer implements UserInterface
      * 
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"consumer_details:read", "consumers:read", "consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "manager_consumers:write"})
      */
     private $client;
 

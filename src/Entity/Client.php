@@ -14,9 +14,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ApiResource(
  *  attributes={
- *      "order"={"id":"DESC"},
- *      "security"="is_granted('ROLE_ADMIN')",
- *      "security_message"="Resources and operations reserved for administrators"
+ *      "order"={"id":"DESC"}
  * },
  *  itemOperations={
  *      "get"={
@@ -25,7 +23,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *          }, 
  *          "openapi_context" = {
  *              "summary" = "Single client informations with the list of linked consumers",
- *              "description" = "Query by client ID to display client informations",
+ *              "description" = "Query by client ID to display client informations.",
  *              "tags" = {"SINGLE CLIENT"}
  *           }
  *      }
@@ -69,6 +67,13 @@ class Client
      * 
      * @Assert\NotBlank
      * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="60",
+     *  minMessage="Client name : minimum 3 characters",
+     *  maxMessage="Client name : maximum 60 characters"
+     * )
+     * 
      * @Groups({"client_details:read", "clients:read", "consumer_details:read"})
      */
     private $name;
@@ -77,6 +82,13 @@ class Client
      * @ORM\Column(type="string", length=80)
      * 
      * @Assert\NotBlank
+     * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="80",
+     *  minMessage="Client address : minimum 3 characters",
+     *  maxMessage="Client address : maximum 80 characters"
+     * )
      * 
      * @Groups({"client_details:read", "clients:read"})
      */
@@ -87,6 +99,13 @@ class Client
      * 
      * @Assert\NotBlank
      * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="60",
+     *  minMessage="Client city : minimum 3 characters",
+     *  maxMessage="Client city : maximum 60 characters"
+     * )
+     * 
      * @Groups({"client_details:read", "clients:read"})
      */
     private $city;
@@ -95,6 +114,13 @@ class Client
      * @ORM\Column(type="string", length=25)
      * 
      * @Assert\NotBlank
+     * 
+     * @Assert\Length(
+     *  min="3",
+     *  max="25",
+     *  minMessage="Client phone number : minimum 3 characters",
+     *  maxMessage="Client phone number : maximum 25 characters"
+     * )
      * 
      * @Groups({"client_details:read", "clients:read"})
      */
@@ -116,6 +142,7 @@ class Client
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->consumers = new ArrayCollection();
     }
 
