@@ -43,9 +43,8 @@ final class DeleteConsumerSubscriber implements EventSubscriberInterface
         if ($this->security->getUser()->getId() === $consumer->getId()) 
         {
             throw new AccessDeniedException("Prohibited operation. You can not delete your own account.");
-
         } 
-
+        
         $adminRole = $this->security->getUser()->getRole() === 'ROLE_ADMIN';
 
         $consumerRole = $consumer->getRole() === 'ROLE_USER';

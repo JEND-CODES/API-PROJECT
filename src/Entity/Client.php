@@ -10,28 +10,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * @ApiResource(
- *  attributes={
- *      "order"={"id":"DESC"}
- * },
- *  itemOperations={
- *      "get"={
- *          "normalizationContext"={
- *              "groups"={"client_details:read"}
+ *  attributes = {
+ *      "order" = {"id":"DESC"}
+ *  },
+ *  paginationItemsPerPage = 2,
+ *  itemOperations = {
+ *      "get" = {
+ *          "normalizationContext" = {
+ *              "groups" = {"client_details:read"}
  *          }, 
  *          "openapi_context" = {
- *              "summary" = "Single client informations with the list of linked consumers",
- *              "description" = "Query by client ID to display client informations.",
+ *              "summary" = "Single client information with the list of linked consumers",
+ *              "description" = "Query by client ID to display client information.",
  *              "tags" = {"SINGLE CLIENT"}
  *           }
  *      }
  *  }, 
- *  collectionOperations={
- *      "get"={
- *          "normalizationContext"={
- *              "groups"={"clients:read"}
+ *  collectionOperations = {
+ *      "get" = {
+ *          "normalizationContext" = {
+ *              "groups" = {"clients:read"}
  *          }, 
  *          "openapi_context" = {
  *              "summary" = "Query to the list of clients",
@@ -43,7 +45,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * ),
  * @ApiFilter(
  *  SearchFilter::class, 
- *  properties={
+ *  properties = {
  *      "name":"partial"
  *  }
  * ),

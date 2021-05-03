@@ -38,10 +38,12 @@ final class JwtDecorator implements OpenApiFactoryInterface
             'properties' => [
                 'username' => [
                     'type' => 'string',
+                    'description' => 'Unique username',
                     'example' => 'pseudo',
                 ],
                 'password' => [
                     'type' => 'string',
+                    'description' => 'Private password',
                     'example' => 'password',
                 ],
             ],
@@ -73,7 +75,7 @@ final class JwtDecorator implements OpenApiFactoryInterface
 
         $requestBody = new Model\RequestBody('Generate new JWT Token', $content);
 
-        $post = new Model\Operation('postCredentialsItem', ['AUTHORIZATION TOKEN'], $responses, 'Get JWT token to login.', 'Enter your credentials to generate a JWT Token', new Model\ExternalDocumentation, [], $requestBody);
+        $post = new Model\Operation('postCredentialsItem', ['ACCOUNT'], $responses, 'Get JWT token authorization', 'Enter your credentials to generate a JWT Token', new Model\ExternalDocumentation, [], $requestBody);
 
         $pathItem = new Model\PathItem('JWT Token', null, null, null, null, $post);
 
@@ -81,5 +83,4 @@ final class JwtDecorator implements OpenApiFactoryInterface
         
         return $openApi;
     }
-    
 }

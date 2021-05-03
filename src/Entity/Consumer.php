@@ -9,82 +9,100 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Controller\NewConsumerRole;
+use App\Controller\ConsumerAccount;
 
 /**
  * @ApiResource(
- *  attributes={
- *      "order"={"id":"DESC"}
+ *  attributes = {
+ *      "order" = {"id":"DESC"}
  *  },
- *  paginationItemsPerPage=2,
- *  itemOperations={
- *      "get"={
- *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Resource reserved for administrators",
- *          "normalization_context"={
- *              "groups"={"consumer_details:read"}
+ *  paginationItemsPerPage = 2,
+ *  itemOperations = {
+ *      "get" = {
+ *          "security" = "is_granted('ROLE_ADMIN')",
+ *          "security_message" = "Resource restricted to administrators",
+ *          "normalization_context" = {
+ *              "groups" = {"consumer_details:read"}
  *          },
  *          "openapi_context" = {
- *              "summary" = "Consult the details of a consumer linked to a client",
- *              "description" = "Query by identifier to consult consumer's informations. Resource reserved for administrators.", 
+ *              "summary" = "Consults the details of a consumer linked to a client",
+ *              "description" = "Query by identifier to consult consumer's information. Resource restricted to administrators.", 
  *              "tags" = {"SINGLE CONSUMER"}
  *          }
  *      },
- *      "delete"={
- *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Operation reserved for administrators",
+ *      "delete" = {
+ *          "security" = "is_granted('ROLE_ADMIN')",
+ *          "security_message" = "Operation restricted to administrators",
  *          "openapi_context" = {
  *              "summary" = "Delete one consumer",
- *              "description" = "Delete by ID one consumer. Operation reserved for administrators. Administrators can not delete administrators accounts.", 
+ *              "description" = "Delete by ID one consumer. Operation restricted to administrators. Administrators can not delete administrators' accounts.", 
  *              "tags" = {"REMOVE CONSUMER"}
  *          }
  *      }
  *  },
- *  collectionOperations={
- *      "get"={
- *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Collection reserved for administrators",
- *          "normalization_context"={
- *              "groups"={"consumers:read"}
+ *  collectionOperations = {
+ *      "get" = {
+ *          "security" = "is_granted('ROLE_ADMIN')",
+ *          "security_message" = "Collection restricted to administrators",
+ *          "normalization_context" = {
+ *              "groups" = {"consumers:read"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Query to the list of consumers",
- *              "description" = "Displays the list of every consumers. You can also search with a filter by username. Collection reserved for administrators.",
+ *              "description" = "Displays the list of all consumers. You can also search with a filter by username. Collection restricted to administrators.",
  *              "tags" = {"SEARCH CONSUMERS"}
  *          }
  *      },
- *      "post"={
- *          "security"="is_granted('ROLE_ADMIN')",
- *          "security_message"="Operation reserved for administrators",
- *          "controller"=NewConsumerRole::class,
- *          "denormalization_context"={
- *              "groups"={"consumers:write"}
+ *      "post" = {
+ *          "security" = "is_granted('ROLE_ADMIN')",
+ *          "security_message" = "Operation restricted to administrators",
+ *          "controller" = NewConsumerRole::class,
+ *          "denormalization_context" = {
+ *              "groups" = {"consumers:write"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Creates a new consumer with your client reference",
- *              "description" = "Operation reserved for administrators. Defines automatically the new consumer with your client reference. Administrators can not create administrators accounts. The new consumer will receive an email.",
+ *              "description" = "Operation restricted to administrators. Automatically defines the new consumer with your client reference. Administrators can not create administrators' accounts. The new consumer will be sent an email.",
  *              "tags" = {"ADD CONSUMER"}
  *          }
  *      }, 
- *      "manager_post_consumer"={
- *          "security"="is_granted('ROLE_SUPER_ADMIN')",
- *          "security_message"="Operation reserved for managers",
- *          "method"="POST",
- *          "path"="/new-consumers",
- *          "denormalization_context"={
- *              "groups"={"manager_consumers:write"}
+ *      "manager_post_consumer" = {
+ *          "security" = "is_granted('ROLE_SUPER_ADMIN')",
+ *          "security_message" = "Operation restricted to managers",
+ *          "method" = "POST",
+ *          "path" = "/new-consumers",
+ *          "denormalization_context" = {
+ *              "groups" = {"manager_consumers:write"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Creates a new consumer linked to a client",
- *              "description" = "Operation reserved for managers. Defines role and client reference. The new consumer will receive an email.",
+ *              "description" = "Operation restricted to managers. Defines role and client reference. The new consumer will be sent an email.",
  *              "tags" = {"ADD CONSUMER"}
+ *          }
+ *      }, 
+ *      "consumer_account" = {
+ *          "method" = "GET",
+ *          "path" = "/account",
+ *          "controller" = ConsumerAccount::class,
+ *          "read" = false,
+ *          "pagination_enabled" = false,
+ *          "filters" = {},
+ *          "normalization_context" = {
+ *              "groups" = {"consumers:read"}
+ *          },
+ *          "openapi_context" = {
+ *              "summary" = "Current user account information",
+ *              "description" = "Displays current user account information",
+ *              "tags" = {"ACCOUNT"}
  *          }
  *      }
  *  }
  * ),
  * @ApiFilter(
  *  SearchFilter::class, 
- *  properties={
+ *  properties = {
  *      "username":"partial"
  *  }
  * ),
@@ -117,6 +135,8 @@ class Consumer implements UserInterface
      * )
      * 
      * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "description"="MUST BE UNIQUE" }})
      */
     private $username;
 
@@ -128,6 +148,8 @@ class Consumer implements UserInterface
      * @Assert\Email
      * 
      * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "description"="MUST BE UNIQUE" }})
      */
     private $email;
 
@@ -192,6 +214,8 @@ class Consumer implements UserInterface
      * )
      * 
      * @Groups({"consumers:write", "manager_consumers:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "description"="WILL BE ENCODED" }})
      */
     private $password;
 
@@ -208,6 +232,8 @@ class Consumer implements UserInterface
      * @ORM\Column(type="string", length=80)
      * 
      * @Groups({"consumer_details:read", "consumers:read", "manager_consumers:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "description"="ROLE_USER, ROLE_ADMIN or ROLE_SUPER_ADMIN", "example"="ROLE_USER" }})
      */
     private $role;
 
@@ -217,6 +243,8 @@ class Consumer implements UserInterface
      * @ORM\JoinColumn(nullable=false)
      * 
      * @Groups({"consumer_details:read", "consumers:read", "manager_consumers:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "example"="/api/clients/1" }})
      */
     private $client;
 

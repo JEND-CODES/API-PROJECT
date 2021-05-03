@@ -9,54 +9,56 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\NewProductMailer;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * @ApiResource(
- *  attributes={
- *      "order"={"id":"DESC"}
- * },
- * itemOperations={
- *      "get"={
- *          "normalization_context"={
- *              "groups"={"product_details:read"}
+ *  attributes = {
+ *      "order" = {"id":"DESC"}
+ *  },
+ *  paginationItemsPerPage = 4,
+ *  itemOperations = {
+ *      "get" = {
+ *          "normalization_context" = {
+ *              "groups" = {"product_details:read"}
  *          },
  *          "openapi_context" = {
- *              "summary" = "View the details of a product",
+ *              "summary" = "Displays product details",
  *              "description" = "Query to display a Bilemo product",
  *              "tags" = {"ONE PRODUCT"}
  *           }
  *      },
- *      "delete"={
- *          "security"="is_granted('ROLE_SUPER_ADMIN')",
- *          "security_message"="Operation reserved for managers",
+ *      "delete" = {
+ *          "security" = "is_granted('ROLE_SUPER_ADMIN')",
+ *          "security_message" = "Operation restricted to managers",
  *          "openapi_context" = {
  *              "summary" = "Delete one product",
- *              "description" = "Delete by ID one product. Operation reserved for managers.",
+ *              "description" = "Delete by ID one product. Operation restricted to managers.",
  *              "tags" = {"REMOVE PRODUCT"}
  *          }
  *      }
  *  },
- *  collectionOperations={
- *      "get"={
- *          "normalization_context"={
- *              "groups"={"products:read"}
+ *  collectionOperations = {
+ *      "get" = {
+ *          "normalization_context" = {
+ *              "groups" = {"products:read"}
  *          },
  *          "openapi_context" = {
- *              "summary" = "Consult the products list",
+ *              "summary" = "Consults products list",
  *              "description" = "Query to display all Bilemo products or to search with filters",
  *              "tags" = {"SEARCH PRODUCTS"}
  *           }
  *      },
- *      "post"={
- *          "controller"=NewProductMailer::class,
- *          "security"="is_granted('ROLE_SUPER_ADMIN')",
- *          "security_message"="Operation reserved for managers",
- *          "denormalization_context"={
- *              "groups"={"products:write"}
+ *      "post" = {
+ *          "controller" = NewProductMailer::class,
+ *          "security" = "is_granted('ROLE_SUPER_ADMIN')",
+ *          "security_message" = "Operation restricted to managers",
+ *          "denormalization_context" = {
+ *              "groups" = {"products:write"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Creates a new product",
- *              "description" = "Creates a new Bilemo product. Operation reserved for managers.",
+ *              "description" = "Creates a new Bilemo product. Operation restricted to managers.",
  *              "tags" = {"ADD PRODUCT"}
  *          }
  *      }
@@ -64,7 +66,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * ),
  * @ApiFilter(
  *  SearchFilter::class, 
- *  properties={
+ *  properties = {
  *      "phone":"partial",
  *      "trademark":"partial",
  *      "summary":"partial",
@@ -99,6 +101,8 @@ class Product
      * )
      * 
      * @Groups({"product_details:read", "products:read", "products:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "description"="MUST BE UNIQUE", "example"="Galaxy" }})
      */
     private $phone;
 
@@ -115,6 +119,8 @@ class Product
      * )
      * 
      * @Groups({"product_details:read", "products:read", "products:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "example"="Samsung" }})
      */
     private $trademark;
 
@@ -163,6 +169,8 @@ class Product
      * )
      * 
      * @Groups({"product_details:read", "products:read", "products:write"})
+     * 
+     * @ApiProperty(attributes={"openapi_context"={ "description"="MUST BE POSITIVE", "example"=799.99 }})
      */
     private $price;
 

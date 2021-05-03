@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ConsumerMailSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var \Swift_Mailer
+     */
     private $mailer;
 
     public function __construct(\Swift_Mailer $mailer)

@@ -13,6 +13,9 @@ class NewProductMailer
      */
     private $security;
 
+    /**
+     * @var \Swift_Mailer
+     */
     private $mailer;
 
     public function __construct(Security $security, \Swift_Mailer $mailer)
