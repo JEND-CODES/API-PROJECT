@@ -4,29 +4,56 @@
 
 [![SymfonyInsight](https://insight.symfony.com/projects/e987388d-6340-4e8c-aea9-b082f74aa4e9/big.svg)](https://insight.symfony.com/projects/e987388d-6340-4e8c-aea9-b082f74aa4e9)
 
+## PRÉREQUIS
+
+``` bash
+* PHP >=7.2.5
+* Composer v2.0.11
+* MySql v5.7
+* Apache v2.4.39
+* npm v6.13.4
+* yarn v1.22.5
+* OpenSSL v1.1.1
+```
+
+## INSTRUCTIONS D'INSTALLATION
+``` bash
+* CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/API-PROJECT
+
+* INSTALLEZ LES DÉPENDANCES AVEC COMPOSER : composer install
+
+* INSTALLEZ LES DÉPENDANCES CSS & JS : npm install
+
+* ACTUALISEZ LE DOSSIER DES DÉPENDANCES : npm run dev
+
+* INDIQUEZ LE MAIL MANAGER RÉFÉRENT (FICHIER .ENV) : MANAGER_MAIL="..."
+
+* CRÉEZ LA BASE DE DONNÉES (FICHIER .ENV) : doctrine:database:create
+
+* GÉNÉREZ LES FIXTURES : doctrine:fixtures:load
+
+* LANCEZ VOTRE SERVEUR ET CONNECTEZ-VOUS À L APPLICATION
+
+* GÉNÉREZ LE TOKEN JWT SUR LE ENDPOINT : POST /API/LOGIN
+
+* UTILISEZ CE JETON POUR CHAQUE REQUÊTE VERS L API : BEARER <JWT_TOKEN>
+
+* EN PRODUCTION VEILLEZ À CONFIGURER LE HTACCESS : RewriteCond %{HTTP:Authorization} ^(.*)
+```
+
 ## DÉMO => http://mobile.planetcode.fr
-
-## Avancées
-
-• Entités annotées (attributs, groupes de normalisation, opérations, documentation..) : [dossier ENTITY](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Entity)
-
-• Authentification JWT, routes sécurisées et rôles hiérarchiques (ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN) : fichier [security.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/security.yaml)
-
-• Configuration Api platform et paramètres de mise en cache : [api_platform.yaml](https://github.com/JEND-CODES/API-PROJECT/blob/main/config/packages/api_platform.yaml)
-
-• Custom Operation : envoi d'un mail lors de la création d'un nouveau produit [NewProductMailer.php](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Controller)
-
-• Custom Operation : assignations automatiques du ROLE_USER et de la référence Client lors de la création d'un utilisateur par un ROLE_ADMIN [NewConsumerRole.php](https://github.com/JEND-CODES/API-PROJECT/blob/main/src/Controller/NewConsumerRole.php)
-
-• Endpoint JWT Token de l'API configuré dans le fichier : [JwtDecorator.php](https://github.com/JEND-CODES/API-PROJECT/blob/main/src/OpenApi/JwtDecorator.php)
-
-• Event Susbcribers : encodage d'un nouveau mot de passe, sécurisation lors de la suppression d'un utilisateur et envoi d'un mail lors de la création d'un nouvel utilisateur [dossier Events](https://github.com/JEND-CODES/API-PROJECT/tree/main/src/Events)
-
-• Exemples de documentations associées à l'API : [Swagger UI](http://mobile.planetcode.fr/swagger/index.html) & [ReDoc](http://mobile.planetcode.fr/api/docs?ui=re_doc)
 
 ## HOMEPAGE
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
+
+## SMARTPHONES
+
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
+
+## DOCUMENTATIONS
+
+• Exemples de documentations associées à l'API : [Swagger UI](http://mobile.planetcode.fr/swagger/index.html) & [ReDoc](http://mobile.planetcode.fr/api/docs?ui=re_doc)
 
 ## DIAGRAMMES UML
 
@@ -41,25 +68,6 @@
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P7_V3.png)
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Concepteur_BDD_Bilemo_v3.png)
-
-## INSTRUCTIONS D'INSTALLATION
-``` bash
-* CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/API-PROJECT
-
-* INSTALLEZ LES DÉPENDANCES AVEC COMPOSER : composer install
-
-* CRÉEZ LA BASE DE DONNÉES (FICHIER .ENV) : doctrine:database:create
-
-* GÉNÉREZ LES FIXTURES : doctrine:fixtures:load
-
-* LANCEZ VOTRE SERVEUR ET CONNECTEZ-VOUS À L APPLICATION
-
-* GÉNÉREZ LE TOKEN JWT SUR LE ENDPOINT : POST /API/LOGIN
-
-* UTILISEZ CE JETON POUR CHAQUE REQUÊTE VERS L API : BEARER <JWT_TOKEN>
-
-* EN PRODUCTION VEILLEZ À CONFIGURER LE HTACCESS : RewriteCond %{HTTP:Authorization} ^(.*)
-```
 
 ## CAPTURES
 
