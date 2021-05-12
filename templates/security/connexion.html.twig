@@ -6,86 +6,98 @@
 
 <section class="change-font">
 
-<div class="background-image" style="background:url('{{ asset('images/login-background.jpg') }}');"></div>
+    <div class="background-image" style="background:url('{{ asset('images/login-background.jpg') }}');"></div>
 
-<div class="center-align white-text">
+    <div class="center-align white-text">
 
-    <h4>BILEMO</h4>
-    <p>API WEB SERVICE</p>
+        <h4>BILEMO</h4>
+        <p>API WEB SERVICE</p>
 
-    <img class="main-logo" src="{{ asset('images/bilemo-logo.png') }}" alt="Bilemo API" title="Bilemo API">
+        <img class="main-logo" src="{{ asset('images/bilemo-logo.png') }}" alt="Bilemo API" title="Bilemo API">
 
-</div>
+    </div>
 
-{% if app.user %}
+    {% if app.user %}
 
-<div class="center-align white-text">
+    <div class="center-align white-text">
 
-    <div class="medium-spacer"></div>
+        <div class="medium-spacer"></div>
 
-    <a href="{{ path('gotoapi') }}" class="btn waves-effect waves-light blue lighten-3">API PLATFORM</a>
+        <a href="{{ path('gotoapi') }}" class="btn waves-effect waves-light blue lighten-3 hoverable">
+            <i class="fas fa-satellite-dish"></i>&nbsp;&nbsp;API PLATFORM
+        </a>
 
-    <div class="regular-spacer"></div>
-    <div class="regular-spacer"></div>
+        <div class="double-spacer"></div>
 
-    <a href="{{ path('security_disconnect') }}" class="btn waves-effect waves-light teal lighten-3">DÉCONNEXION</a>
+        <a href="{{ path('security_disconnect') }}" class="btn waves-effect waves-light teal lighten-3 hoverable">
+            <i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;DÉCONNEXION
+        </a>
 
-    <div class="regular-spacer"></div>
-    <div class="regular-spacer"></div>
+        <div class="double-spacer"></div>
 
-    <a href="/api/docs?ui=re_doc" class="btn waves-effect waves-light indigo lighten-3">DOCUMENTATION</a>
+        <a href="/api/docs?ui=re_doc" class="btn waves-effect waves-light indigo lighten-3 hoverable">
+            <i class="fas fa-file-alt"></i>&nbsp;&nbsp;DOCUMENTATION
+        </a>
 
-</div>
+        <div class="double-spacer"></div>
 
-{% else %}
+        <a href="{{ path('bilemo_products') }}" class="btn waves-effect waves-light purple lighten-3 hoverable">
+            <i class="fas fa-phone"></i>&nbsp;&nbsp;SMARTPHONES
+        </a>
 
-<div class="row" style="margin-top:30px;">
+    </div>
 
-    <div class="col s12 l4 offset-l4">
+    {% else %}
 
-        <div class="card" style="background-color:rgba(255,255,255,0.9);border-radius:20px;">
+    <div class="row form-box">
 
-            <div class="card-content">
+        <div class="col s12 l4 offset-l4">
 
-                {% if error %}
+            <div class="card special-card">
 
-                <p class="red-text center-align"><strong>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></p>
-                
-                {% endif %}
+                <div class="card-content">
 
-                <form action="{{ path('security_connexion')}}" method="post">
+                    {% if error %}
 
-                    <div class="row">
+                    <p class="red-text center-align"><strong>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></p>
+                    
+                    {% endif %}
 
-                        <div class="input-field col s12" style="padding-left:40px;padding-right:40px;">
+                    <form action="{{ path('security_connexion')}}" method="post">
 
-                            <i class="fas fa-user" style="color:#1e88e5;"></i>
+                        <div class="row">
 
-                            <input placeholder="Nom d'utilisateur" name="_username" type="text" class="validate">
+                            <div class="input-field col s12 special-input">
+
+                                <i class="fas fa-user icon-color-1"></i>
+
+                                <input placeholder="Nom d'utilisateur" name="_username" type="text" class="validate">
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="row">
 
-                    <div class="row">
+                            <div class="input-field col s12 special-input">
 
-                        <div class="input-field col s12" style="padding-left:40px;padding-right:40px;">
+                                <i class="fas fa-key icon-color-2"></i>
 
-                            <i class="fas fa-key" style="color:#8e24aa;"></i>
+                                <input placeholder="Mot de passe" name="_password" type="password" class="validate">
 
-                            <input placeholder="Mot de passe" name="_password" type="password" class="validate">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="row center-align">
 
-                    <div class="row center-align">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Connexion</button>
 
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Connexion</button>
+                        </div>
 
-                    </div>
+                    </form>
 
-                </form>
+                </div>
 
             </div>
 
@@ -93,20 +105,24 @@
 
     </div>
 
-</div>
+    <div class="center-align white-text">
 
-<div class="center-align white-text">
+        <a href="/api/docs?ui=re_doc" class="btn waves-effect waves-light indigo lighten-3 hoverable">
+            <i class="fas fa-file-alt"></i>&nbsp;&nbsp;DOCUMENTATION
+        </a>
 
-    <a href="/api/docs?ui=re_doc" class="btn waves-effect waves-light indigo lighten-3">DOCUMENTATION</a>
+        <div class="regular-spacer"></div>
 
-</div>
+        <a href="{{ path('bilemo_products') }}" class="btn waves-effect waves-light indigo lighten-3 hoverable">
+            <i class="fas fa-phone"></i>&nbsp;&nbsp;SMARTPHONES
+        </a>
 
-{% endif %}
+        <div class="regular-spacer"></div>
+
+    </div>
+
+    {% endif %}
 
 </section>
-
-{% endblock %}
-
-{% block javascripts %}
 
 {% endblock %}

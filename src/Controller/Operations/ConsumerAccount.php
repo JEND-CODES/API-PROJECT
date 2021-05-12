@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Operations;
 
 use Symfony\Component\Security\Core\Security;
 
@@ -19,8 +19,9 @@ class ConsumerAccount
     public function __invoke()
     {
         $current_consumer = $this->security->getUser();
-        return $current_consumer;
-    }
 
+        return $current_consumer;
+        
+    }
 
 }

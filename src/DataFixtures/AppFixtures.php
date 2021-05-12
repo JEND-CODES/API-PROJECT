@@ -14,32 +14,63 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @var ClientRepository
+     */
+    private $clientRepo;
+
+    /**
+     * @var ProductRepository
+     */
+    private $productRepo;
+
+    /**
+     * @var ConsumerRepository
+     */
+    private $consumerRepo;
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
+    /**
+     * @var string $managerMail
+     */
+    private $managerMail;
    
     public function __construct(
-        ClientRepository $clientRepository, 
-        ProductRepository $productRepository, 
-        ConsumerRepository $consumerRepository, 
-        UserPasswordEncoderInterface $encoder
+        ClientRepository $clientRepo, 
+        ProductRepository $productRepo, 
+        ConsumerRepository $consumerRepo, 
+        UserPasswordEncoderInterface $encoder,
+        string $managerMail
         )
     {
-        $this->clientRepository = $clientRepository;
-        $this->productRepository = $productRepository;
-        $this->consumerRepository = $consumerRepository;
+        $this->clientRepo = $clientRepo;
+        $this->productRepo = $productRepo;
+        $this->consumerRepo = $consumerRepo;
         $this->encoder = $encoder;
+        $this->managerMail = $managerMail;
     }
 
     public function load(ObjectManager $manager)
     {
+
         $faker = \Faker\Factory::create('FR-fr');
 
-        $this->clientRepository->fixtureIndex();
-        $this->productRepository->fixtureIndex();
-        $this->consumerRepository->fixtureIndex();
+        $this->clientRepo->fixtureIndex();
+        $this->productRepo->fixtureIndex();
+        $this->consumerRepo->fixtureIndex();
 
         // TÉLÉPHONES PROPOSÉS PAR BILEMO
         $phones = ['Galaxy', 'iPhone', 'Xperia', 'MX154', 'P40pro', 'FindX3', 'BZ789', '3080G'];
+
         $brands = ['Samsung', 'Apple', 'Sony', 'Xiaomi', 'Huawei', 'Oppo', 'Nokia', 'Alcatel'];
-        $colors = ['Silver', 'White', 'Black', 'Gold', 'Orange', 'Grey', 'Black', 'White'];
+
+        $images = ['<DOMAIN_NAME>/images/smartphones/samsung.jpg','<DOMAIN_NAME>/images/smartphones/iphone.jpg','<DOMAIN_NAME>/images/smartphones/xperia.jpg','<DOMAIN_NAME>/images/smartphones/xiaomi.jpg','<DOMAIN_NAME>/images/smartphones/huawei.jpg','<DOMAIN_NAME>/images/smartphones/oppo.jpg','<DOMAIN_NAME>/images/smartphones/nokia.jpg','<DOMAIN_NAME>/images/smartphones/alcatel.jpg'];
+        
+        $colors = ['Silver', 'White', 'Black', 'Blue', 'Orange', 'Grey', 'Black', 'Black'];
 
         foreach ($phones as $key => $value)
         {
@@ -47,6 +78,7 @@ class AppFixtures extends Fixture
            $product->setPhone($value)
                 ->setTrademark($brands[$key])
                 ->setSummary('Caractéristiques : '.$faker->paragraph(3))
+                ->setImage($images[$key])
                 ->setPrice($faker->numberBetween(400, 900))
                 ->setColor($colors[$key])
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
@@ -60,7 +92,7 @@ class AppFixtures extends Fixture
         $client = new Client();
         $client->setName('Bilemo')
                 ->setAddress('154 rue de Belleville')
-                ->setCity('Paris')
+                ->setCity('Marseille')
                 ->setPhoneNbr('01345912XX')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
@@ -83,7 +115,7 @@ class AppFixtures extends Fixture
         $client = new Client();
         $client->setName('Orange')
                 ->setAddress('43 boulevard des Capucines')
-                ->setCity('Paris')
+                ->setCity('Lyon')
                 ->setPhoneNbr('01731238XX')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
                 ;
@@ -106,9 +138,9 @@ class AppFixtures extends Fixture
         $consumer = new Consumer();
         $client = $this->getReference('bilemo-ref');
         $consumer->setUsername('manager')
-                ->setEmail('manager.bilemo@test.com')
+                ->setEmail($this->managerMail)
                 ->setAddress($faker->secondaryAddress())
-                ->setCity('Paris')
+                ->setCity('Marseille')
                 ->setPhoneNbr('06491076XX')
                 ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))
@@ -138,7 +170,7 @@ class AppFixtures extends Fixture
         $consumer->setUsername('adminOrange')
                 ->setEmail('admin.orange@test.com')
                 ->setAddress($faker->secondaryAddress())
-                ->setCity('Marseille')
+                ->setCity('Lyon')
                 ->setPhoneNbr('06205687XX')
                 ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
                 ->setCreatedAt($faker->dateTimeBetween('-1 months'))

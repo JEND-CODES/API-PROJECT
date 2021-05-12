@@ -2,7 +2,7 @@ api_platform:
 
     title: 'BILEMO'
 
-    description: "<img src='/images/api-logo.png' alt='API WEB SERVICE' title='API WEB SERVICE' /><br /><br /><strong>API WEB SERVICE</strong><br /><br /><a href='http://localhost:4000'>HOMEPAGE</a>&nbsp;&nbsp;<a href='http://localhost:4000/api/docs?ui=re_doc'>DOCUMENTATION</a>&nbsp;&nbsp;<a href='http://localhost:4000/disconnect'>LOGOUT</a>"
+    description: "<img src='/images/api-logo.png' alt='API WEB SERVICE' title='API WEB SERVICE' /><br /><br /><strong>API WEB SERVICE</strong><br /><br /><a href='../'>HOMEPAGE</a>&nbsp;&nbsp;<a href='../api/docs?ui=re_doc'>DOCUMENTATION</a>&nbsp;&nbsp;<a href='../disconnect'>LOGOUT</a>"
 
     version: '1.0.0'
 
