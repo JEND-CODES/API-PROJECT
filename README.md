@@ -7,17 +7,11 @@
 ## PRÉREQUIS
 ``` bash
 * PHP >=7.2.5
-
 * Composer v2.0.11
-
 * MySql v5.7
-
 * Apache v2.4.39
-
 * npm v6.13.4
-
 * yarn v1.22.5
-
 * OpenSSL v1.1.1
 ```
 
