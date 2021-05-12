@@ -11,7 +11,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
-use App\Controller\Operations\NewClientAddConsumer;
 
 /**
  * @ApiResource(
@@ -22,20 +21,13 @@ use App\Controller\Operations\NewClientAddConsumer;
  *  itemOperations = {
  *      "get" = {
  *          "normalizationContext" = {
- *              "groups" = {"clients:read"}
+ *              "groups" = {"client_details:read"}
  *          }, 
  *          "openapi_context" = {
  *              "summary" = "Single client information with the list of linked consumers",
- *              "description" = "Query by client ID to display client information."
+ *              "description" = "Query by client ID to display client information.",
+ *              "tags" = {"SINGLE CLIENT"}
  *           }
- *      },
- *      "delete" = {
- *          "security" = "is_granted('ROLE_SUPER_ADMIN')",
- *          "security_message" = "Operation restricted to managers",
- *          "openapi_context" = {
- *              "summary" = "Deletes by ID one client",
- *              "description" = "Operation restricted to managers."
- *          }
  *      }
  *  }, 
  *  collectionOperations = {
@@ -45,20 +37,9 @@ use App\Controller\Operations\NewClientAddConsumer;
  *          }, 
  *          "openapi_context" = {
  *              "summary" = "Query to the list of clients",
- *              "description" = "Displays the list of Bilemo clients."
+ *              "description" = "This collection of resources displays the list of Bilemo clients. You can also search with a filter by name.",
+ *              "tags" = {"SEARCH CLIENTS"}
  *           }
- *      },
- *      "post" = {
- *          "security" = "is_granted('ROLE_SUPER_ADMIN')",
- *          "security_message" = "Operation restricted to managers",
- *          "controller" = NewClientAddConsumer::class,
- *          "denormalization_context" = {
- *              "groups" = {"clients:write"}
- *          },
- *          "openapi_context" = {
- *              "summary" = "Creates a new client",
- *              "description" = "Operation restricted to managers."
- *          }
  *      }
  *  }
  * ),
@@ -79,7 +60,7 @@ class Client
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"clients:read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $id;
 
@@ -95,7 +76,7 @@ class Client
      *  maxMessage="Client name : maximum 60 characters"
      * )
      * 
-     * @Groups({"clients:read", "consumer_details:read", "clients:write"})
+     * @Groups({"client_details:read", "clients:read", "consumer_details:read"})
      */
     private $name;
 
@@ -111,7 +92,7 @@ class Client
      *  maxMessage="Client address : maximum 80 characters"
      * )
      * 
-     * @Groups({"clients:read", "clients:write"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $address;
 
@@ -127,7 +108,7 @@ class Client
      *  maxMessage="Client city : maximum 60 characters"
      * )
      * 
-     * @Groups({"clients:read", "clients:write"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $city;
 
@@ -143,7 +124,7 @@ class Client
      *  maxMessage="Client phone number : maximum 25 characters"
      * )
      * 
-     * @Groups({"clients:read", "clients:write"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $phoneNbr;
 
@@ -152,12 +133,12 @@ class Client
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"clients:read"})
+     * @Groups({"client_details:read", "clients:read"})
      */
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Consumer", mappedBy="client", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Consumer", mappedBy="client", orphanRemoval=true)
      */
     private $consumers;
 
@@ -262,5 +243,5 @@ class Client
         return $this;
     }
 
-
+    
 }

@@ -10,8 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
-use App\Controller\Operations\NewConsumerRole;
-use App\Controller\Operations\ConsumerAccount;
+use App\Controller\NewConsumerRole;
+use App\Controller\ConsumerAccount;
 
 /**
  * @ApiResource(
@@ -24,19 +24,21 @@ use App\Controller\Operations\ConsumerAccount;
  *          "security" = "is_granted('ROLE_ADMIN')",
  *          "security_message" = "Resource restricted to administrators",
  *          "normalization_context" = {
- *              "groups" = {"consumers:read"}
+ *              "groups" = {"consumer_details:read"}
  *          },
  *          "openapi_context" = {
- *              "summary" = "Displays the details of a consumer linked to a client",
- *              "description" = "Resource restricted to administrators."
+ *              "summary" = "Consults the details of a consumer linked to a client",
+ *              "description" = "Query by identifier to consult consumer's information. Resource restricted to administrators.", 
+ *              "tags" = {"SINGLE CONSUMER"}
  *          }
  *      },
  *      "delete" = {
  *          "security" = "is_granted('ROLE_ADMIN')",
  *          "security_message" = "Operation restricted to administrators",
  *          "openapi_context" = {
- *              "summary" = "Deletes by ID one consumer",
- *              "description" = "Operation restricted to administrators."
+ *              "summary" = "Delete one consumer",
+ *              "description" = "Delete by ID one consumer. Operation restricted to administrators. Administrators can not delete administrators' accounts.", 
+ *              "tags" = {"REMOVE CONSUMER"}
  *          }
  *      }
  *  },
@@ -48,33 +50,36 @@ use App\Controller\Operations\ConsumerAccount;
  *              "groups" = {"consumers:read"}
  *          },
  *          "openapi_context" = {
- *              "summary" = "Displays the list of all consumers",
- *              "description" = "Collection restricted to administrators."
+ *              "summary" = "Query to the list of consumers",
+ *              "description" = "Displays the list of all consumers. You can also search with a filter by username. Collection restricted to administrators.",
+ *              "tags" = {"SEARCH CONSUMERS"}
  *          }
  *      },
  *      "post" = {
  *          "security" = "is_granted('ROLE_ADMIN')",
  *          "security_message" = "Operation restricted to administrators",
  *          "controller" = NewConsumerRole::class,
- *          "path" = "/my-consumers",
  *          "denormalization_context" = {
  *              "groups" = {"consumers:write"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Creates a new consumer with your client reference",
- *              "description" = "Operation restricted to administrators."
+ *              "description" = "Operation restricted to administrators. Automatically defines the new consumer with your client reference. Administrators can not create administrators' accounts. The new consumer will be sent an email.",
+ *              "tags" = {"ADD CONSUMER"}
  *          }
  *      }, 
  *      "manager_post_consumer" = {
  *          "security" = "is_granted('ROLE_SUPER_ADMIN')",
  *          "security_message" = "Operation restricted to managers",
  *          "method" = "POST",
+ *          "path" = "/new-consumers",
  *          "denormalization_context" = {
  *              "groups" = {"manager_consumers:write"}
  *          },
  *          "openapi_context" = {
  *              "summary" = "Creates a new consumer linked to a client",
- *              "description" = "Operation restricted to managers. Defines role and client reference."
+ *              "description" = "Operation restricted to managers. Defines role and client reference. The new consumer will be sent an email.",
+ *              "tags" = {"ADD CONSUMER"}
  *          }
  *      }, 
  *      "consumer_account" = {
@@ -90,7 +95,7 @@ use App\Controller\Operations\ConsumerAccount;
  *          "openapi_context" = {
  *              "summary" = "Current user account information",
  *              "description" = "Displays current user account information",
- *              "tags" = {"Account"}
+ *              "tags" = {"ACCOUNT"}
  *          }
  *      }
  *  }
@@ -113,7 +118,7 @@ class Consumer implements UserInterface
      * 
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"consumers:read"})
+     * @Groups({"consumer_details:read", "consumers:read"})
      */
     private $id;
 
@@ -129,7 +134,7 @@ class Consumer implements UserInterface
      *  maxMessage="Consumer username : maximum 100 characters"
      * )
      * 
-     * @Groups({"consumers:read", "consumers:write", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      * 
      * @ApiProperty(attributes={"openapi_context"={ "description"="MUST BE UNIQUE" }})
      */
@@ -142,7 +147,7 @@ class Consumer implements UserInterface
      * 
      * @Assert\Email
      * 
-     * @Groups({"consumers:read", "consumers:write", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      * 
      * @ApiProperty(attributes={"openapi_context"={ "description"="MUST BE UNIQUE" }})
      */
@@ -160,7 +165,7 @@ class Consumer implements UserInterface
      *  maxMessage="Consumer address : maximum 80 characters"
      * )
      * 
-     * @Groups({"consumers:read", "consumers:write", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $address;
 
@@ -176,7 +181,7 @@ class Consumer implements UserInterface
      *  maxMessage="Consumer city : maximum 60 characters"
      * )
      * 
-     * @Groups({"consumers:read", "consumers:write", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $city;
 
@@ -192,7 +197,7 @@ class Consumer implements UserInterface
      *  maxMessage="Consumer phone number : maximum 25 characters"
      * )
      * 
-     * @Groups({"consumers:read", "consumers:write", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "consumers:write", "manager_consumers:write"})
      */
     private $phoneNbr;
 
@@ -219,14 +224,14 @@ class Consumer implements UserInterface
      * 
      * @Assert\NotBlank
      * 
-     * @Groups({"consumers:read"})
+     * @Groups({"consumer_details:read", "consumers:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=80)
      * 
-     * @Groups({"consumers:read", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "manager_consumers:write"})
      * 
      * @ApiProperty(attributes={"openapi_context"={ "description"="ROLE_USER, ROLE_ADMIN or ROLE_SUPER_ADMIN", "example"="ROLE_USER" }})
      */
@@ -237,7 +242,7 @@ class Consumer implements UserInterface
      * 
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"consumers:read", "manager_consumers:write"})
+     * @Groups({"consumer_details:read", "consumers:read", "manager_consumers:write"})
      * 
      * @ApiProperty(attributes={"openapi_context"={ "example"="/api/clients/1" }})
      */

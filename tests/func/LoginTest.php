@@ -5,16 +5,16 @@ namespace App\Func;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Repository\ConsumerRepository;
 
-class ApiAccessTest extends WebTestCase
+class LoginTest extends WebTestCase
 {
 
-    public function testConsumerApiAccess()
+    public function testConsumerEndpointsAccess()
     {
         $client = static::createClient();
 
         $consumerRepo = static::$container->get(ConsumerRepository::class);
 
-        $consumer = $consumerRepo->findOneByEmail('admin.free@test.com');
+        $consumer = $consumerRepo->findOneByEmail('admin@test.com');
 
         $client->loginUser($consumer);
 

@@ -10,7 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+use App\Repository\ClientRepository;
+use App\Repository\ConsumerRepository;
+use App\Repository\ProductRepository;
+
+class ApiController extends AbstractController
 {
     /**
      * @var Security
@@ -45,7 +49,9 @@ class SecurityController extends AbstractController
      */
     public function goToApi(): RedirectResponse
     {
+        // Une redirection 301 est une substitution permanente de l’adresse initialement demandée par l’adresse obtenue
         return $this->redirect('/api', 301);
+        
     }
-
+    
 }
