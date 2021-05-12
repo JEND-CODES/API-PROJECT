@@ -45,11 +45,11 @@
 
 ## HOMEPAGE
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.JPG)
 
 ## SMARTPHONES
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject.png)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/public/images/CapchaApiProject2.JPG)
 
 ## DOCUMENTATIONS
 
@@ -57,17 +57,17 @@
 
 ## DIAGRAMMES UML
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Cas_Gestion_Api_P7_V3.png)
-
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Roles_et_Operations_P7_V1.png)
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/S%C3%A9quence_Authentification_P7_V4.png)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Cas_Gestion_Api_Manager_P7_V1.png)
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Diagramme_de_Classes_P7_V3.png)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/S%C3%A9quence_Requ%C3%AAtes_P7_V2.png)
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P7_V3.png)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Diagramme_de_Classes_P7_V4.png)
 
-![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Concepteur_BDD_Bilemo_v3.png)
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P7_V4.png)
+
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Concepteur_BDD_Bilemo_v4.png)
 
 ## CAPTURES
 
