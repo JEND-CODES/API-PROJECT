@@ -26,37 +26,36 @@ class CountProductDecorator implements OpenApiFactoryInterface
     {
         $openApi = $this->decorated->__invoke($context);
 
-        $openApi
-            ->getPaths()
-            ->addPath('/api/products/count', new PathItem(null, null, null, new Operation(
-                    'get',
-                    ['SEARCH PRODUCTS'],
-                    [
-                        Response::HTTP_OK => [
-                            'content' => [
-                                'application/json' => [
-                                    'schema' => [
-                                        'type' => 'object',
-                                        'properties' => [
-                                            'total_number' => [
-                                                'type' => 'integer',
-                                                'example' => 7,
-                                            ]
-                                        ],
-                                    ],
-                                ],
+        $responses = [
+            '200' => [
+                'content' => [
+                    'application/json' => [
+                        'schema' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'total_number' => [
+                                    'type' => 'integer',
+                                    'example' => 7,
+                                ]
                             ],
                         ],
-                        '404' => [
-                            'description' => 'Result not found',
-                        ],
                     ],
-                    "Retrieves total number of products",
-                    "Query to retrieve total count of products"
-                )
-            ));
+                ],
+            ],
+            '404' => [
+                'description' => 'Result not found',
+            ],
+        ];
+
+        $newOperation = new Operation('get', ['Product'], $responses, "Retrieves total number of products", "Query to retrieve total count of products");
+
+        $pathItem = new PathItem(null, null, null, $newOperation);
+
+        $openApi->getPaths()->addPath('/api/products/count', $pathItem);
 
         return $openApi;
+
     }
 
+    
 }

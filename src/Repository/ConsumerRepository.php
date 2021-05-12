@@ -25,13 +25,19 @@ class ConsumerRepository extends ServiceEntityRepository
 		$connection->exec("ALTER TABLE consumer AUTO_INCREMENT = 1;");
 	}
 
-    /* public function getAllEmail()
+    public function getAllEmail()
     {
-        $result = $this->createQueryBuilder('u')
-            ->select(array('u.email'))
-            ->getQuery();
-        return array("getResult" => $result->getResult());
-    } */
+        $query = $this->createQueryBuilder('u');
+
+        $query->select('u.email');
+
+        $result = $query->getQuery()->getScalarResult();
+
+        $emails = array_column($result, "email");
+
+        return $emails;
+        
+    }
 
     // /**
     //  * @return Consumer[] Returns an array of Consumer objects
