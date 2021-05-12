@@ -70,9 +70,6 @@ class ProductController extends AbstractController
 
         return $response;
 
-        // Les 3 lignes supérieures peuvent être remplacées par celle-ci :
-        // return $this->json($product, 200, [], ['groups' => 'product_details:read']);
-
     }
 
     /**
@@ -90,9 +87,6 @@ class ProductController extends AbstractController
         ]);
 
         return $response;
-
-        // Toutes les lignes supérieures peuvent être remplacées par celle-ci :
-        // return $this->json($this->productRepo->findBy(array(), array('id' => 'DESC')), 200, [], ['groups' => 'products:read']);
 
     }
 
