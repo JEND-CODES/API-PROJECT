@@ -49,6 +49,10 @@ final class ConsumerMailSubscriber implements EventSubscriberInterface
         $message = "Votre compte Api Bilemo vient d'être ajouté. Vous pouvez vous connecter avec le pseudo suivant : {$consumer->getUsername()} ; et le mot de passe que vous aviez communiqué. Ce compte utilisateur est rattaché au compte client {$consumer->getClient()->getName()} et est référencé avec l'identifiant n°{$consumer->getId()}. Nous vous remercions pour votre confiance !";
 
         $this->mailSender->sendMail($this->mailSender::NEW_API_USER, $consumer->getEmail(), $message);
+        
+        $infoManager = "Le compte Api Bilemo {$consumer->getUsername()} vient d'être ajouté. Ce compte utilisateur est rattaché au compte client {$consumer->getClient()->getName()} et est référencé avec l'identifiant n°{$consumer->getId()}.";
+
+        $this->mailSender->sendMail($this->mailSender::NEW_API_USER, $this->managerMail, $infoManager);
 
     }
 
