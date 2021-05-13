@@ -95,7 +95,7 @@ class Client
      *  maxMessage="Client name : maximum 60 characters"
      * )
      * 
-     * @Groups({"clients:read", "consumer_details:read", "clients:write"})
+     * @Groups({"clients:read", "consumers:read", "clients:write"})
      */
     private $name;
 

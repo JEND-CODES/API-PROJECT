@@ -48,7 +48,7 @@ use App\Controller\Operations\ConsumerAccount;
  *              "groups" = {"consumers:read"}
  *          },
  *          "openapi_context" = {
- *              "summary" = "Displays the list of all consumers",
+ *              "summary" = "Displays the list of all consumers with filters",
  *              "description" = "Collection restricted to administrators."
  *          }
  *      },
@@ -98,7 +98,8 @@ use App\Controller\Operations\ConsumerAccount;
  * @ApiFilter(
  *  SearchFilter::class, 
  *  properties = {
- *      "username":"partial"
+ *      "username":"partial",
+ *      "client.name":"partial"
  *  }
  * ),
  * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
