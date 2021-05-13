@@ -59,6 +59,10 @@
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Roles_et_Operations_P7_V1.png)
 
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/User_Operations_P7_V1.png)
+
+![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Admin_Operations_P7_V1.png)
+
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/Cas_Gestion_Api_Manager_P7_V1.png)
 
 ![API-PROJECT](https://raw.githubusercontent.com/JEND-CODES/API-PROJECT/main/diagrammes/S%C3%A9quence_Requ%C3%AAtes_P7_V2.png)
