@@ -40,6 +40,10 @@ class NewProductMailer extends AbstractController
             $this->mailSender->sendMail($this->mailSender::NEW_API_PRODUCT, $mailList[$key], $message);
 
         }
+        
+        $infoManager = "Le smarthpone {$data->getPhone()} de {$data->getTrademark()} est désormais disponible sur l'Api Bilemo. Il a été ajouté par l'utilisateur suivant : {$current_consumer} .";
+
+        $this->mailSender->sendMail($this->mailSender::NEW_API_PRODUCT, $this->getParameter('manager.mail'), $infoManager);
 
         return $data;
     
