@@ -59,6 +59,10 @@ class NewClientAddConsumer extends AbstractController
         $message = "Le compte client {$data->getName()} vient d'être ajouté au répertoire Bilemo. Vous pouvez vous connecter avec le pseudo suivant : consumer{$data->getName()} ; et le mot de passe par défaut : testtest . Nous vous remercions pour votre confiance !";
 
         $this->mailSender->sendMail($this->mailSender::NEW_API_CLIENT, 'consumer'.$data->getName().'@test.com', $message);
+       
+        $infoManager = "Le compte client {$data->getName()} a bien été ajouté au répertoire Bilemo.";
+
+        $this->mailSender->sendMail($this->mailSender::NEW_API_CLIENT, $this->getParameter('manager.mail'), $infoManager);
       
         return $data;
 
