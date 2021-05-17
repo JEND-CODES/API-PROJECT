@@ -56,8 +56,8 @@ input {
 }
 
 .special-input {
-  padding-left: 40px !important;
-  padding-right: 40px !important;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .icon-color-1 {
