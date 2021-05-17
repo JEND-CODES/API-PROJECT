@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     manager.mail: '%env(resolve:MANAGER_MAIL)%'
+    noreply.mail: '%env(resolve:NOREPLY_MAIL)%'
     # locale: fr
 
 services:
@@ -34,6 +35,10 @@ services:
     App\DataFixtures\AppFixtures:
         arguments:
             $managerMail: '%manager.mail%'
+
+    App\Service\MailSender:
+        arguments:
+            $noreplyMail: '%noreply.mail%'
 
     App\Events\ConsumerMailSubscriber:
         arguments:

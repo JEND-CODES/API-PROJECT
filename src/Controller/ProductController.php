@@ -45,7 +45,6 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/products/{id}", name="one_product", requirements={"id": "\d+"}, methods={"GET"})
-     * @param int $id
      * @return Response
      */
     public function oneProduct(int $id): Response
@@ -101,7 +100,6 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/bilemo/products/{id}", name="bilemo_one_product", methods={"GET"})
-     * @param int $id
      * @return Response
      */
     public function bilemoOneProduct(int $id): Response

@@ -15,21 +15,22 @@ class MailSender
      */
     private $mailer;
 
-    public function __construct(\Swift_Mailer $mailer)
+    /**
+     * @var string $noreplyMail
+     */
+    private $noreplyMail;
+
+    public function __construct(\Swift_Mailer $mailer, string $noreplyMail)
     {
         $this->mailer = $mailer;
+        $this->noreplyMail = $noreplyMail;
     }
 
-    /**
-     * @param string $mailSubject
-     * @param string $userEmail
-     * @param string $mailBody
-     */
     public function sendMail(string $mailSubject, string $userEmail, string $mailBody): void
     {
 
         $message = (new \Swift_Message($mailSubject))
-            ->setFrom('noreply@bilemo.com')
+            ->setFrom($this->noreplyMail)
             ->setTo($userEmail)
             ->setBody($mailBody)
             ;

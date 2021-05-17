@@ -18,11 +18,11 @@ class ApiAccessTest extends WebTestCase
 
         $client->loginUser($consumer);
 
-        $crawler = $client->request('GET', '/api');
+        $client->request('GET', '/api');
 
         $this->assertResponseIsSuccessful();
 
-        $crawler = $client->request('GET', '/api/clients');
+        $client->request('GET', '/api/clients');
         
         // Si on demande si la réponse est réussie -> Erreur : "Failed asserting that the Response is successful. Code 401 Unauthorized. JWT Token not found"
         // $this->assertResponseIsSuccessful();
@@ -31,11 +31,11 @@ class ApiAccessTest extends WebTestCase
         // HTTP Error 401 -> Unauthorized
         $this->assertEquals(401, $client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/api/products');
+        $client->request('GET', '/api/products');
 
         $this->assertEquals(401, $client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/api/consumers');
+        $client->request('GET', '/api/consumers');
 
         $this->assertEquals(401, $client->getResponse()->getStatusCode());
 

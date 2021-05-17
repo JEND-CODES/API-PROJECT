@@ -24,7 +24,6 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/", name="security_connexion", methods={"GET","POST"})
-     * @param AuthenticationUtils $utils
      * @return Response
      */
     public function connexion(AuthenticationUtils $utils): Response
